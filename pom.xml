@@ -18,21 +18,21 @@
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean</artifactId>
-            <version>13.10.0</version>
+            <version>12.16.1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.ebean/ebean-ddl-generator -->
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean-ddl-generator</artifactId>
-            <version>13.10.0</version>
+            <version>12.16.1</version>
         </dependency>
 
         <!-- Test dependencies -->
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean-test</artifactId>
-            <version>13.10.0</version>
+            <version>12.16.1</version>
             <scope>test</scope>
         </dependency>
 
@@ -88,7 +88,7 @@
                         <path>
                             <groupId>io.ebean</groupId>
                             <artifactId>querybean-generator</artifactId>
-                            <version>13.10.0</version>
+                            <version>12.16.1</version>
                         </path>
 
                         <path>
