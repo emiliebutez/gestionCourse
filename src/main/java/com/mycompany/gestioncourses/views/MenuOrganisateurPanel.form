@@ -88,11 +88,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Consulter &#xe9;dition"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConsulterEditionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="consulterClassement">
       <Properties>
         <Property name="text" type="java.lang.String" value="Consultation classement"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consulterClassementActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="utilisateur">
       <Properties>

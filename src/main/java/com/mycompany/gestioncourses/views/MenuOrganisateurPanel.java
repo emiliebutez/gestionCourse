@@ -53,8 +53,18 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
         });
 
         ConsulterEdition.setText("Consulter édition");
+        ConsulterEdition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsulterEditionActionPerformed(evt);
+            }
+        });
 
         consulterClassement.setText("Consultation classement");
+        consulterClassement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consulterClassementActionPerformed(evt);
+            }
+        });
 
         utilisateur.setText("Choix Utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +123,14 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
     private void utilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utilisateurActionPerformed
         frame.displayUtilisateur();
     }//GEN-LAST:event_utilisateurActionPerformed
+
+    private void ConsulterEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsulterEditionActionPerformed
+        frame.displayConsulterEditionsPanel();
+    }//GEN-LAST:event_ConsulterEditionActionPerformed
+
+    private void consulterClassementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterClassementActionPerformed
+        frame.displayConsulterClassementPanel();
+    }//GEN-LAST:event_consulterClassementActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

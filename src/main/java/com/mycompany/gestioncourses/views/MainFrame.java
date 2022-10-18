@@ -91,6 +91,10 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new UtilisateurPanel(this));
     }
     
+    public void displayConsulterEditionsPanel() {
+        this.setMainFrame(new ConsulterEditionsPanel(this));
+    }
+    
     public void displayMenuOrganisateur() {
         this.setMainFrame(new MenuOrganisateurPanel(this));
     }
@@ -101,6 +105,10 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void displayCreationEditionPanel() {
         this.setMainFrame(new CreationEditionPanel(this));
+    }
+    
+    public void displayConsulterClassementPanel() {
+        this.setMainFrame(new ConsulterClassementPanel(this));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
