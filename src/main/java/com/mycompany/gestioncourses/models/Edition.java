@@ -38,7 +38,7 @@ public class Edition extends Model {
     @OneToMany
     private List<ParticipationEquipe> participationEquipes;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Course course;
 
     public void ajouterEtape(Etape etape) {
