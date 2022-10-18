@@ -1,5 +1,6 @@
 package com.mycompany.gestioncourses.models;
 
+import io.ebean.Model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Etape {
+public class Etape extends Model {
     @Id
     @GeneratedValue
     private Integer id;

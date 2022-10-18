@@ -6,6 +6,7 @@ package com.mycompany.gestioncourses.views.organisateur;
 
 import com.mycompany.gestioncourses.controllers.OrganisateurController;
 import com.mycompany.gestioncourses.models.Course;
+import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.services.CourseService;
 import com.mycompany.gestioncourses.services.EditionService;
 import com.mycompany.gestioncourses.views.MainFrame;
@@ -323,7 +324,7 @@ public class CreationEditionPanel extends javax.swing.JPanel implements ActionLi
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            courseService.creerEdition(
+            Edition edition = courseService.creerEdition(
                     courseSelectionnee,
                     Integer.parseInt(annee.getText()),
                     format.parse(dateDebutEdition.getText()),
@@ -332,6 +333,14 @@ public class CreationEditionPanel extends javax.swing.JPanel implements ActionLi
                     villeArriveeEdition.getText(),
                     paysDepartEdition.getText(),
                     paysArriveeEdition.getText()
+            );
+            editionService.ajouterEtape(
+                    edition,
+                    villeDepartEtape.getText(),
+                    villeArriveeEtape.getText(),
+                    paysDepartEtape.getText(),
+                    paysArriveeEtape.getText(),
+                    Float.parseFloat(distanceEtape.getText())
             );
             frame.displayMenuOrganisateur();
         } catch (ParseException ex) {

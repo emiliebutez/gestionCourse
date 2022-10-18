@@ -1,11 +1,13 @@
 package com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.*;
+import static com.mycompany.gestioncourses.models.query.QEtape.Alias.edition;
 import com.mycompany.gestioncourses.models.query.QParticipation;
 import lombok.val;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,15 @@ public class EditionService {
         edition.setAnnulee(true);
         edition.save();
         return edition;
+    }
+    
+    public Etape ajouterEtape(Edition edition, String villeDepart, 
+            String villeArrivee, String paysDepart, String paysArrivee, 
+            float distance) {
+        Etape etape = new Etape(null, villeDepart, villeArrivee, paysDepart, paysArrivee, distance, 1, EtatEtape.Attente, edition, Collections.emptyList());
+        etape.save();
+        edition.refresh();
+        return etape;
     }
 
     public List<Participation> participationsEdition(Edition edition) {

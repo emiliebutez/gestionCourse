@@ -55,8 +55,8 @@ public class CourseService {
                 .findOneOrEmpty();
     }
 
-    public Course creerEdition(Course course, int annee, Date dateDebut, Date dateFin, String depart, String arrivee, String paysDepart, String paysArrivee) {
-        val edition = new Edition(
+    public Edition creerEdition(Course course, int annee, Date dateDebut, Date dateFin, String depart, String arrivee, String paysDepart, String paysArrivee) {
+        Edition edition = new Edition(
                 null,
                 annee,
                 dateDebut,
@@ -72,11 +72,11 @@ public class CourseService {
                 emptyList(),
                 course
         );
+        
         edition.save();
+        course.refresh();
 
-        return new QCourse()
-                .id.eq(course.getId())
-                .findOne();
+        return edition;
     }
 
 }
