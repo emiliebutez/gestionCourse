@@ -28,13 +28,13 @@ public class Edition extends Model {
     private float distance;
     private boolean annulee;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Etape> etapes;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Participation> participations;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ParticipationEquipe> participationEquipes;
 
     @ManyToOne(optional = false)
