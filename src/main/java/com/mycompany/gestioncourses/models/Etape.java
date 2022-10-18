@@ -31,4 +31,55 @@ public class Etape {
     private Edition edition;
     @OneToMany
     private List<Performance> performances;
+
+    public Etape(Integer id, String villeDepart, String villeArrivee, String paysDepart, String paysArrivee, float distance, int numOrdre, EtatEtape etatEtape) {
+        this.id = id;
+        this.villeDepart = villeDepart;
+        this.villeArrivee = villeArrivee;
+        this.paysDepart = paysDepart;
+        this.paysArrivee = paysArrivee;
+        this.distance = distance;
+        this.numOrdre = numOrdre;
+        this.etatEtape = EtatEtape.Attente;
+        this.edition = edition;
+        this.performances = performances;
+    }
+    
+    public void etablirClassementEtape(){
+        
+    }
+    
+    public EtatEtape annulerEtape(){
+        return this.etatEtape.Annulee;
+    }
+    
+    public EtatEtape cloturerEtape(){
+        return this.etatEtape.Cloturee;
+    }
+    
+    public EtatEtape lancerEtape(){
+        return this.etatEtape.Lancee;
+    }
+    
+    public void afficherEtape(){
+        
+    }
+    
+//    public float tempsMoyenCoureurEtape(){
+//        
+//    }
+    
+    public void recupererDistance(){
+        
+    }
+
+    @Override
+    public String toString() {
+        return "Etape" + numOrdre + " : " + villeDepart + "-" + villeArrivee + "  " + paysDepart + "-" + paysArrivee + ", distance=" + distance + ", etatEtape=" + etatEtape +'}';
+    }
+    
+    
+    
+    
+    
 }
