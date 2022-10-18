@@ -21,12 +21,17 @@ import java.util.stream.Stream;
 public class CourseService {
 
     private static CourseService INSTANCE;
+
     public synchronized static CourseService getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new CourseService();
         }
 
         return INSTANCE;
+    }
+
+    private CourseService() {
+
     }
 
     public Course creerCourse(String nom) {

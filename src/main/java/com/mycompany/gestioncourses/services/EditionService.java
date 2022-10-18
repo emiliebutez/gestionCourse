@@ -31,6 +31,10 @@ public class EditionService {
         return INSTANCE;
     }
 
+    private EditionService() {
+
+    }
+
     public Edition annulerEdition(Edition edition) {
         edition.setAnnulee(true);
         edition.save();
