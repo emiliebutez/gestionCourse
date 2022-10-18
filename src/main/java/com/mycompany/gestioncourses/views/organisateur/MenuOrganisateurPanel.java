@@ -122,7 +122,7 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_creationCourseActionPerformed
 
     private void creationEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationEditionActionPerformed
-        frame.displayCreationEditionPanel();
+        frame.displayCreationEditionPanel(null);
     }//GEN-LAST:event_creationEditionActionPerformed
 
     private void utilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utilisateurActionPerformed

@@ -90,7 +90,7 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 MainFrame frame = new MainFrame();
-                frame.setContentPane(new UtilisateurPanel(frame));
+                frame.setMainFrame(new UtilisateurPanel(frame));
                 frame.setVisible(true);
             }
         });
@@ -98,6 +98,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void setMainFrame(Container c) {
         this.setContentPane(c);
+        this.pack();
         this.revalidate();
         this.repaint();
     }
@@ -130,8 +131,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new CreationCoursePanel(this));
     }
     
-    public void displayCreationEditionPanel() {
-        this.setMainFrame(new CreationEditionPanel(this));
+    public void displayCreationEditionPanel(Course course) {
+        this.setMainFrame(new CreationEditionPanel(this, course));
     }
     
     public void displayConsulterClassementPanel() {
@@ -149,7 +150,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void displayConsultationClassementJuryPanel() {
         this.setMainFrame(new ConsultationClassementJuryPanel(this));
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

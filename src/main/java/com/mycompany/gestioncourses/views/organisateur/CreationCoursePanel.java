@@ -5,6 +5,8 @@
 package com.mycompany.gestioncourses.views.organisateur;
 
 import com.mycompany.gestioncourses.controllers.OrganisateurController;
+import com.mycompany.gestioncourses.models.Course;
+import com.mycompany.gestioncourses.services.CourseService;
 import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
@@ -14,6 +16,7 @@ import com.mycompany.gestioncourses.views.MainFrame;
 public class CreationCoursePanel extends javax.swing.JPanel {
 
     private MainFrame frame;
+    private CourseService courseService = CourseService.getInstance();
     private OrganisateurController controller;
     /**
      * Creates new form CreationCoursePanel
@@ -121,9 +124,8 @@ public class CreationCoursePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_menuActionPerformed
 
     private void ajouterCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterCourseActionPerformed
-        this.controller.ajouterCourse(nomCourse.getText());
-        resultatNomCourse.setText(this.controller.afficherCourse());
-        
+        Course course = this.courseService.creerCourse(nomCourse.getText());
+        this.frame.displayCreationEditionPanel(course);
     }//GEN-LAST:event_ajouterCourseActionPerformed
 
     private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed

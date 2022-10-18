@@ -10,6 +10,7 @@ import com.mycompany.gestioncourses.models.query.QCourse;
 import com.mycompany.gestioncourses.views.organisateur.CreationCoursePanel;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -32,7 +33,7 @@ public class OrganisateurController {
     }
     
     public String afficherEditions(Course course) {
-        ArrayList<Edition> editions = (ArrayList<Edition>) course.getEditions();
+        List<Edition> editions = course.getEditions();
         String informationsEdition = "";
         
         for (Edition edition : editions) {
