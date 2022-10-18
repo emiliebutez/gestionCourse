@@ -4,6 +4,8 @@
  */
 package com.mycompany.gestioncourses.views.organisateur;
 
+import com.mycompany.gestioncourses.controllers.OrganisateurController;
+import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
@@ -13,12 +15,14 @@ import com.mycompany.gestioncourses.views.MainFrame;
 public class CreationEditionPanel extends javax.swing.JPanel {
 
     private MainFrame frame;
+    private OrganisateurController controller;
     /**
      * Creates new form CreationCoursePanel
      */
-    public CreationEditionPanel(MainFrame frame) {
+    public CreationEditionPanel(MainFrame frame, Course course) {
         this.frame = frame;
         initComponents();
+        this.controller = new OrganisateurController();
     }
 
     /**
@@ -32,6 +36,8 @@ public class CreationEditionPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         menu = new javax.swing.JButton();
+        nomCourse = new javax.swing.JLabel();
+        valider = new javax.swing.JButton();
 
         jLabel1.setText("Creation edition");
 
@@ -42,27 +48,42 @@ public class CreationEditionPanel extends javax.swing.JPanel {
             }
         });
 
+        nomCourse.setText("Nom de la course");
+
+        valider.setText("Valider");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(jLabel1)
-                .addContainerGap(152, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(64, 64, 64)
                 .addComponent(menu)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(nomCourse)
+                .addGap(18, 18, 18)
+                .addComponent(valider)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(menu)
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(menu))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel1)))
+                .addGap(75, 75, 75)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nomCourse)
+                    .addComponent(valider))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -74,5 +95,7 @@ public class CreationEditionPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton menu;
+    private javax.swing.JLabel nomCourse;
+    private javax.swing.JButton valider;
     // End of variables declaration//GEN-END:variables
 }

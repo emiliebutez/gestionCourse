@@ -45,7 +45,10 @@ public class GestionCourses {
                 course
         );
         edition.save();
-
-        System.out.println(new QCourse().findList().stream().map(c -> c.getEditions().stream().map(e -> e.getId()).collect(Collectors.toList())).collect(Collectors.toList()));
+       
+        Course courseBis = new QCourse().id.equalTo(1).findOne();
+        System.out.println(courseBis.getNom());
+        
+        System.out.println("hey");
     }
 }

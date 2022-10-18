@@ -20,4 +20,10 @@ public class Course extends Model {
     private String nom;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Edition> editions;
+    
+    public void addEdition(Edition edition){
+        this.editions.add(edition);
+    }
+    
+    
 }

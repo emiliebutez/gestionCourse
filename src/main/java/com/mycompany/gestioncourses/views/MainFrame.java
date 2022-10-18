@@ -4,6 +4,8 @@
  */
 package com.mycompany.gestioncourses.views;
 
+import com.mycompany.gestioncourses.models.Course;
+import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.views.coureur.MenuCoureurPanel;
 import com.mycompany.gestioncourses.views.organisateur.ConsultationClassementPanel;
 import com.mycompany.gestioncourses.views.organisateur.ConsultationEditionsPanel;
@@ -16,6 +18,8 @@ import com.mycompany.gestioncourses.views.jury.ConsultationClassementJuryPanel;
 import com.mycompany.gestioncourses.views.jury.ConsultationEditionsJuryPanel;
 import com.mycompany.gestioncourses.views.jury.MenuJuryPanel;
 import java.awt.Container;
+import java.sql.Date;
+import java.util.Collections;
 
 /**
  *
