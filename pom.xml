@@ -51,6 +51,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.github.peichhorn/lombok-pg -->
+        <dependency>
+            <groupId>com.github.peichhorn</groupId>
+            <artifactId>lombok-pg</artifactId>
+            <version>0.11.3</version>
+            <classifier>runtime</classifier>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -95,6 +104,18 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>1.18.24</version>
+                        </path>
+
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.24</version>
+                        </path>
+
+                        <path>
+                            <groupId>com.github.peichhorn</groupId>
+                            <artifactId>lombok-pg</artifactId>
+                            <version>0.11.3</version>
                         </path>
                         <!-- other annotation processors -->
                     </annotationProcessorPaths>
