@@ -79,4 +79,8 @@ public class CourseService {
         return edition;
     }
 
+    public List<Course> courses() {
+        return new QCourse().findList();
+    }
+
 }

@@ -5,11 +5,15 @@
 package com.mycompany.gestioncourses.views.organisateur;
 
 import com.mycompany.gestioncourses.models.Course;
+import com.mycompany.gestioncourses.models.Edition;
+import com.mycompany.gestioncourses.models.Etape;
 import com.mycompany.gestioncourses.services.CourseService;
 import com.mycompany.gestioncourses.views.MainFrame;
+import com.mycompany.gestioncourses.views.utils.DropDownRenderer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -20,12 +24,13 @@ import javax.swing.JComboBox;
  */
 public class ConsultationEditionsPanel extends javax.swing.JPanel implements ActionListener {
     
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy"); 
-
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private MainFrame frame;   
     private CourseService courseService = CourseService.getInstance();
-    private Map<String, Course> courses = courseService.coursesParNom();
+    private List<Course> courses = courseService.courses();
     private Course courseSelectionnee;
+    private Edition editionSelectionnee;
+    private Etape etapeSelectionnee;
     /**
      * Creates new form ConsulterEditionsPanel
      */
@@ -33,26 +38,19 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
         this.frame = frame;
         initComponents();
         this.choixCourse.addActionListener(this);
-        this.courses.keySet().forEach(c -> this.choixCourse.addItem(c));
-        this.courseSelectionnee = this.courses.get(this.choixCourse.getItemAt(0));
+        this.choixEdition.addActionListener(this);
+        this.choixEtape.addActionListener(this);
+        this.courses.stream().forEach(c -> this.choixCourse.addItem(c));
+        this.courseSelectionnee = this.courses.isEmpty() ? null : this.courses.get(0);
+        
+        this.choixCourse.setRenderer(new DropDownRenderer<Course>(c -> c.getNom()));
+        this.choixEdition.setRenderer(new DropDownRenderer<Edition>(e -> DATE_FORMAT.format(e.getDateDebut())));
+        this.choixEtape.setRenderer(new DropDownRenderer<Etape>(e -> {
+            System.out.println(e);
+            return String.valueOf(e.getNumOrdre());
+        }));
         
         this.equipesPanel.setLayout(new BoxLayout(this.equipesPanel, BoxLayout.Y_AXIS));
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
         this.equipesPanel.add(new AffichageEquipePanel());
         this.equipesPanel.add(new AffichageEquipePanel());
         this.equipesPanel.add(new AffichageEquipePanel());
@@ -66,26 +64,61 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.choixCourse) {
-            String value = (String) this.choixCourse.getSelectedItem();
-            if (value != null) {
-                this.courseSelectionnee = this.courses.get(value);
-                this.choixEdition.removeAllItems();
-                this.courseSelectionnee.getEditions()
-                        .stream()
-                        .forEach(edition -> this.choixEdition.addItem(DATE_FORMAT.format(edition.getDateDebut())));
-                this.repaint();
-            }
-            
+            selectionCourse((Course) this.choixCourse.getSelectedItem());
             return;
         }
         
         if (e.getSource() == this.choixEdition) {
-            String value = (String) this.choixCourse.getSelectedItem();
-            if (value == null) {
-                this.courseSelectionnee = this.courses.get(value);
+            selectionEdition((Edition) this.choixEdition.getSelectedItem());
+            return;
+        }
+        
+        if (e.getSource() == this.choixEtape) {
+            Etape value = (Etape) this.choixEtape.getSelectedItem();
+            this.etapeSelectionnee = value;
+
+            if (value != null) {
             }
             
             return;
+        }
+    }
+    
+    private void selectionCourse(Course value) {
+        this.courseSelectionnee = value;
+        if (value != null) {
+            this.choixEdition.removeAllItems();
+            this.courseSelectionnee.getEditions()
+                    .stream()
+                    .forEach(edition -> this.choixEdition.addItem(edition));
+            this.repaint();
+        }
+    }
+    
+    private void selectionEdition(Edition value) {
+        this.editionSelectionnee = value;
+        if (value != null) {
+            this.choixEtape.removeAllItems();
+            this.editionSelectionnee.getEtapes()
+                    .stream()
+                    .forEach(etape -> this.choixEtape.addItem(etape));
+            this.informationsEdition.setText(
+                    String.format(
+                            "<html>" +
+                                "Départ: %s, %s<br/>" + 
+                                    "Arrivée: %s, %s<br/>" + 
+                                    "Dates: %s -> %s<br/>" +
+                                    "Distance: %fkm" +
+                                    "</html>", 
+                            value.getVilleDepart(),value.getPaysDepart(),
+                            value.getVilleArrivee(), value.getPaysArrivee(),
+                            DATE_FORMAT.format(value.getDateDebut()), DATE_FORMAT.format(value.getDateFin()),
+                            value.getDistance()
+                    )
+            );
+            this.repaint();
+        } else {
+            this.informationsEdition.setText("Informations indisponibles");
         }
     }
 
@@ -105,9 +138,13 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
         choixEdition = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         menu = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         equipesPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        choixEtape = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        informationsEdition = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        informationsEtape = new javax.swing.JLabel();
 
         jLabel1.setText("Course");
 
@@ -120,51 +157,61 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
             }
         });
 
-        jLabel3.setText("Informations edition");
-
-        jLabel4.setText("jLabel4");
-
         javax.swing.GroupLayout equipesPanelLayout = new javax.swing.GroupLayout(equipesPanel);
         equipesPanel.setLayout(equipesPanelLayout);
         equipesPanelLayout.setHorizontalGroup(
             equipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 471, Short.MAX_VALUE)
         );
         equipesPanelLayout.setVerticalGroup(
             equipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 146, Short.MAX_VALUE)
+            .addGap(0, 310, Short.MAX_VALUE)
         );
+
+        jLabel5.setText("Etape");
+
+        jLabel3.setText("Informations edition");
+
+        informationsEdition.setText("Informations non disponibles");
+
+        jLabel4.setText("Informations étape");
+
+        informationsEtape.setText("Informations non disponibles");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(155, 155, 155)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))))
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(354, Short.MAX_VALUE)
+                .addContainerGap(586, Short.MAX_VALUE)
                 .addComponent(menu)
                 .addGap(25, 25, 25))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(equipesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(informationsEtape)
+                    .addComponent(jLabel4)
+                    .addComponent(informationsEdition)
+                    .addComponent(jLabel3)
+                    .addComponent(equipesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,13 +226,21 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(informationsEdition)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(equipesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(informationsEtape)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(equipesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -196,7 +251,7 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -211,13 +266,17 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> choixCourse;
-    private javax.swing.JComboBox<String> choixEdition;
+    private javax.swing.JComboBox<Course> choixCourse;
+    private javax.swing.JComboBox<Edition> choixEdition;
+    private javax.swing.JComboBox<Etape> choixEtape;
     private javax.swing.JPanel equipesPanel;
+    private javax.swing.JLabel informationsEdition;
+    private javax.swing.JLabel informationsEtape;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton menu;

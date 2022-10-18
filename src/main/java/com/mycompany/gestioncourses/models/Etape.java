@@ -1,6 +1,7 @@
 package com.mycompany.gestioncourses.models;
 
 import io.ebean.Model;
+import io.ebean.annotation.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Etape extends Model {
     @Id
-    @GeneratedValue
+    @GeneratedValue @NotNull
     private Integer id;
 
     private String villeDepart;

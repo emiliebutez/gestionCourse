@@ -40,7 +40,10 @@ public class EditionService {
     public Etape ajouterEtape(Edition edition, String villeDepart, 
             String villeArrivee, String paysDepart, String paysArrivee, 
             float distance) {
-        Etape etape = new Etape(null, villeDepart, villeArrivee, paysDepart, paysArrivee, distance, 1, EtatEtape.Attente, edition, Collections.emptyList());
+        
+        edition.refresh();
+        int nbEtape = edition.getEtapes().size();
+        Etape etape = new Etape(null, villeDepart, villeArrivee, paysDepart, paysArrivee, distance, nbEtape + 1, EtatEtape.Attente, edition, Collections.emptyList());
         etape.save();
         edition.refresh();
         return etape;

@@ -18,7 +18,7 @@ public class Course extends Model {
     @GeneratedValue
     private Integer id;
     private String nom;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Edition> editions;
     
     public void addEdition(Edition edition){
