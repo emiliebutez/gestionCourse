@@ -17,20 +17,17 @@ public class Participation extends Model {
     @GeneratedValue
     private Integer numInscription;
     private Etat etatParticipation;
-    private String nomEquipe;
     @OneToMany
     private List<Performance> performances;
     @ManyToOne
     private Edition edition;
     @ManyToOne
     private Coureur coureur;
+    @ManyToOne
+    private Equipe equipe;
 
     public void annulerParticipation() {
         this.etatParticipation = Etat.Annulee;
-    }
-
-    public void modifierInscription(String nomEquipe) {
-        this.nomEquipe = nomEquipe;
     }
 
     public void eliminerParticipant() {
