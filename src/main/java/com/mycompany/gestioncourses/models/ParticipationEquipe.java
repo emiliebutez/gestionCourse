@@ -17,8 +17,8 @@ public class ParticipationEquipe extends Model {
     @GeneratedValue
     private Integer numInscription;
     private Etat etatParticipation;
-    @ManyToMany
-    private List<Coureur> coureurs;
+    @OneToMany
+    private List<Participation> participation;
     @ManyToOne
     private Equipe equipe;
     @ManyToOne

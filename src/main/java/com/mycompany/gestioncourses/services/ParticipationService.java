@@ -19,32 +19,32 @@ public class ParticipationService {
 
     }
 
-    public Participation creerParticipation(Edition edition, Coureur coureur, Equipe equipe) {
+    public Participation creerParticipation(ParticipationEquipe participationEquipe, Coureur coureur, Equipe equipe) {
         Participation participation = new Participation(
                 null,
                 Etat.Validee,
                 Collections.emptyList(),
-                edition,
-                coureur,
-                equipe
+                participationEquipe,
+                coureur
         );
 
         participation.save();
-        edition.refresh();
+        participationEquipe.refresh();
+        participationEquipe.getEdition().refresh();
         coureur.refresh();
         equipe.refresh();
 
         return participation;
     }
 
-    public Participation changerEquipeParticipation(Participation participation, Equipe equipe) {
-        Equipe ancienne = participation.getEquipe();
+    public Participation changerEquipeParticipation(Participation participation, ParticipationEquipe participationEquipe) {
+        ParticipationEquipe ancienne = participation.getParticipationEquipe();
 
-        participation.setEquipe(equipe);
+        participation.setParticipationEquipe(participationEquipe);
         participation.save();
 
         ancienne.refresh();
-        equipe.refresh();
+        participationEquipe.refresh();
 
         return participation;
     }
@@ -61,7 +61,7 @@ public class ParticipationService {
         participation.setEtatParticipation(Etat.Annulee);
         participation.save();
         participation.getCoureur().refresh();
-        participation.getEdition().refresh();
+        participation.getParticipationEquipe().refresh();
 
         return participation;
     }

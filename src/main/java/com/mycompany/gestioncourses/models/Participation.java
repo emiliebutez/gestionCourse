@@ -20,11 +20,9 @@ public class Participation extends Model {
     @OneToMany
     private List<Performance> performances;
     @ManyToOne
-    private Edition edition;
+    private ParticipationEquipe participationEquipe;
     @ManyToOne
     private Coureur coureur;
-    @ManyToOne
-    private Equipe equipe;
 
     public void annulerParticipation() {
         this.etatParticipation = Etat.Annulee;
