@@ -75,7 +75,7 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 MainFrame frame = new MainFrame();
-                frame.setContentPane(new CreationCoursePanel(frame));
+                frame.setContentPane(new Utilisateur(frame));
                 frame.setVisible(true);
             }
         });
