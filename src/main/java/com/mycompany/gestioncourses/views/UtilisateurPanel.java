@@ -8,13 +8,13 @@ package com.mycompany.gestioncourses.views;
  *
  * @author Emilie
  */
-public class Utilisateur extends javax.swing.JPanel {
+public class UtilisateurPanel extends javax.swing.JPanel {
 
     private MainFrame frame;
     /**
      * Creates new form CreationCoursePanel
      */
-    public Utilisateur(MainFrame frame) {
+    public UtilisateurPanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
     }
@@ -71,16 +71,16 @@ public class Utilisateur extends javax.swing.JPanel {
                         .addGap(27, 27, 27)
                         .addComponent(membreFFC))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(339, 339, 339)
+                        .addGap(345, 345, 345)
                         .addComponent(jLabel1)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(67, 67, 67)
                 .addComponent(jLabel1)
-                .addGap(60, 60, 60)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(organisateur)
                     .addComponent(coureur)
@@ -92,7 +92,7 @@ public class Utilisateur extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void organisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organisateurActionPerformed
-        frame.displayCreationCoursePanel();
+        frame.displayMenuOrganisateur();
     }//GEN-LAST:event_organisateurActionPerformed
 
 
