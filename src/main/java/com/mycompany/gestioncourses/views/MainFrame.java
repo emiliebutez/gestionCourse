@@ -4,6 +4,14 @@
  */
 package com.mycompany.gestioncourses.views;
 
+import com.mycompany.gestioncourses.views.coureur.MenuCoureurPanel;
+import com.mycompany.gestioncourses.views.organisateur.ConsultationClassementPanel;
+import com.mycompany.gestioncourses.views.organisateur.ConsultationEditionsPanel;
+import com.mycompany.gestioncourses.views.organisateur.CreationCoursePanel;
+import com.mycompany.gestioncourses.views.organisateur.CreationEditionPanel;
+import com.mycompany.gestioncourses.views.organisateur.MenuOrganisateurPanel;
+import com.mycompany.gestioncourses.views.coureur.ConsutationEditionsPanel;
+import com.mycompany.gestioncourses.views.coureur.ConsultationInscriptionsPanel;
 import java.awt.Container;
 
 /**
@@ -91,8 +99,20 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new UtilisateurPanel(this));
     }
     
+    public void displayMenuCoureurPanel() {
+        this.setMainFrame(new MenuCoureurPanel(this));
+    }
+    
+    public void displayConsultationEditionsPanel() {
+        this.setMainFrame(new ConsutationEditionsPanel(this));
+    }
+    
+    public void displayConsultationInscriptionsPanel() {
+        this.setMainFrame(new ConsultationInscriptionsPanel(this));
+    }
+    
     public void displayConsulterEditionsPanel() {
-        this.setMainFrame(new ConsulterEditionsPanel(this));
+        this.setMainFrame(new ConsultationEditionsPanel(this));
     }
     
     public void displayMenuOrganisateur() {
@@ -108,7 +128,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     public void displayConsulterClassementPanel() {
-        this.setMainFrame(new ConsulterClassementPanel(this));
+        this.setMainFrame(new ConsultationClassementPanel(this));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

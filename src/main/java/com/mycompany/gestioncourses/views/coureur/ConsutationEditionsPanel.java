@@ -2,20 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.gestioncourses.views;
+package com.mycompany.gestioncourses.views.coureur;
+
+import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
  *
  * @author Emilie
  */
-public class ConsulterClassementPanel extends javax.swing.JPanel {
-    
-    private MainFrame frame;
+public class ConsutationEditionsPanel extends javax.swing.JPanel {
 
+    private MainFrame frame;
+    
     /**
-     * Creates new form ConsulterClassementPanel
+     * Creates new form ConsutationEditionsPanel
      */
-    public ConsulterClassementPanel(MainFrame frame) {
+    public ConsutationEditionsPanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
     }
@@ -42,22 +44,22 @@ public class ConsulterClassementPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(168, 168, 168)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(304, Short.MAX_VALUE)
                 .addComponent(menu)
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+                .addContainerGap()
                 .addComponent(menu)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
-        this.frame.displayMenuOrganisateur();
+        this.frame.displayMenuCoureurPanel();
     }//GEN-LAST:event_menuActionPerformed
 
 

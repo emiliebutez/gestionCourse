@@ -2,19 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.gestioncourses.views;
+package com.mycompany.gestioncourses.views.organisateur;
+
+import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
  *
  * @author Emilie
  */
-public class ConsulterEditionsPanel extends javax.swing.JPanel {
+public class CreationCoursePanel extends javax.swing.JPanel {
 
-    private MainFrame frame;   
+    private MainFrame frame;
     /**
-     * Creates new form ConsulterEditionsPanel
+     * Creates new form CreationCoursePanel
      */
-    public ConsulterEditionsPanel(MainFrame frame) {
+    public CreationCoursePanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
     }
@@ -28,7 +30,10 @@ public class ConsulterEditionsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         menu = new javax.swing.JButton();
+
+        jLabel1.setText("Creation course");
 
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
@@ -41,17 +46,24 @@ public class ConsulterEditionsPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(289, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addComponent(menu)
-                .addGap(21, 21, 21))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(menu)
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(menu)))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -59,8 +71,9 @@ public class ConsulterEditionsPanel extends javax.swing.JPanel {
         this.frame.displayMenuOrganisateur();
     }//GEN-LAST:event_menuActionPerformed
 
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton menu;
     // End of variables declaration//GEN-END:variables
 }

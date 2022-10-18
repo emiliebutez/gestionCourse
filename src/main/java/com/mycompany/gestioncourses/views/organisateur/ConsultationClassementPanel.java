@@ -2,19 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.gestioncourses.views;
+package com.mycompany.gestioncourses.views.organisateur;
+
+import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
  *
  * @author Emilie
  */
-public class CreationEditionPanel extends javax.swing.JPanel {
-
+public class ConsultationClassementPanel extends javax.swing.JPanel {
+    
     private MainFrame frame;
+
     /**
-     * Creates new form CreationCoursePanel
+     * Creates new form ConsulterClassementPanel
      */
-    public CreationEditionPanel(MainFrame frame) {
+    public ConsultationClassementPanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
     }
@@ -28,10 +31,7 @@ public class CreationEditionPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         menu = new javax.swing.JButton();
-
-        jLabel1.setText("Creation edition");
 
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
@@ -44,12 +44,8 @@ public class CreationEditionPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(jLabel1)
-                .addContainerGap(152, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(541, Short.MAX_VALUE)
                 .addComponent(menu)
                 .addContainerGap())
         );
@@ -58,19 +54,16 @@ public class CreationEditionPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(menu)
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
-        this.frame.displayMenuOrganisateur();
+        this.frame.displayMenuCoureurPanel();
     }//GEN-LAST:event_menuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton menu;
     // End of variables declaration//GEN-END:variables
 }

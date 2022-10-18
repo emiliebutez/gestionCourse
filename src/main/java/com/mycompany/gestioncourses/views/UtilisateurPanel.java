@@ -46,6 +46,11 @@ public class UtilisateurPanel extends javax.swing.JPanel {
         });
 
         coureur.setText("Coureur");
+        coureur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                coureurActionPerformed(evt);
+            }
+        });
 
         responsableEquipe.setText("Responsable d'équipe");
 
@@ -94,6 +99,10 @@ public class UtilisateurPanel extends javax.swing.JPanel {
     private void organisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organisateurActionPerformed
         frame.displayMenuOrganisateur();
     }//GEN-LAST:event_organisateurActionPerformed
+
+    private void coureurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coureurActionPerformed
+        this.frame.displayMenuCoureurPanel();
+    }//GEN-LAST:event_coureurActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
