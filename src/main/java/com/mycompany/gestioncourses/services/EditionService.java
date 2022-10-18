@@ -3,6 +3,7 @@ package com.mycompany.gestioncourses.services;
 import com.mycompany.gestioncourses.models.*;
 import static com.mycompany.gestioncourses.models.query.QEtape.Alias.edition;
 import com.mycompany.gestioncourses.models.query.QParticipation;
+import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
 import lombok.val;
 
 import java.time.Instant;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.groupingBy;
@@ -51,16 +53,22 @@ public class EditionService {
     }
 
     public List<Participation> participationsEdition(Edition edition) {
-        return new QParticipation()
+        return new QParticipationEquipe()
                 .edition.eq(edition)
-                .findList();
+                .findStream()
+                .flatMap(pe -> pe.getParticipation().stream())
+                .collect(Collectors.toList());
     }
 
     public List<Participation> participationsEditionJeunes(Edition edition) {
-        return new QParticipation()
+        return new QParticipationEquipe()
                 .edition.eq(edition)
-                .coureur.dateNaissance.before(Date.from(Instant.now().minus(25, ChronoUnit.YEARS)))
-                .findList();
+                .findStream()
+                .flatMap(pe -> pe.getParticipation().stream())
+                .filter(p -> p.getCoureur().getDateNaissance().before(
+                        Date.from(Instant.now().minus(25, ChronoUnit.YEARS))
+                ))
+                .collect(Collectors.toList());
     }
 
     public Optional<Coureur> meilleurJeune(Edition edition) {
