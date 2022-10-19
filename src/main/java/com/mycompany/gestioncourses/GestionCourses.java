@@ -41,7 +41,6 @@ public class GestionCourses {
                 false,
                 Collections.emptyList(),
                 Collections.emptyList(),
-                Collections.emptyList(),
                 course
         );
         edition.save();

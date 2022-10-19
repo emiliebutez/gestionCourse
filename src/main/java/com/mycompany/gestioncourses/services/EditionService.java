@@ -158,4 +158,17 @@ public class EditionService {
                 .orElse(0f);                          // Si aucun perf, alors 0
     }
 
+    public boolean estInscrit(Edition value, Equipe equipe) {
+        if (value == null || equipe == null) {
+            return false;
+        }
+        
+        QParticipationEquipe qParticipation = new QParticipationEquipe();
+        
+        return qParticipation
+                .edition.eq(value)
+                .equipe.eq(equipe)
+                .exists();
+    }
+
 }

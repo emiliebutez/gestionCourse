@@ -32,9 +32,6 @@ public class Edition extends Model {
     private List<Etape> etapes;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Participation> participations;
-
-    @OneToMany(cascade = CascadeType.ALL)
     private List<ParticipationEquipe> participationEquipes;
 
     @ManyToOne(optional = false)
