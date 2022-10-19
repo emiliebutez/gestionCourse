@@ -53,6 +53,11 @@ public class UtilisateurPanel extends javax.swing.JPanel {
         });
 
         responsableEquipe.setText("Responsable d'équipe");
+        responsableEquipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                responsableEquipeActionPerformed(evt);
+            }
+        });
 
         jury.setText("Jury");
         jury.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +118,11 @@ public class UtilisateurPanel extends javax.swing.JPanel {
         this.frame.displayMenuJuryPanel();
     }//GEN-LAST:event_juryActionPerformed
 
+    private void responsableEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_responsableEquipeActionPerformed
+        this.frame.displayConnexionEquipePanel();
+    }//GEN-LAST:event_responsableEquipeActionPerformed
+
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton coureur;
