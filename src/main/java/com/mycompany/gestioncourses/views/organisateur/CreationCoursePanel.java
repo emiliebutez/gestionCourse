@@ -41,8 +41,6 @@ public class CreationCoursePanel extends javax.swing.JPanel {
         nomCourse = new javax.swing.JTextField();
         ajouterCourse = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        resultatNomCourse = new javax.swing.JLabel();
-        test = new javax.swing.JButton();
 
         jLabel1.setText("Creation course");
 
@@ -57,15 +55,6 @@ public class CreationCoursePanel extends javax.swing.JPanel {
         ajouterCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ajouterCourseActionPerformed(evt);
-            }
-        });
-
-        resultatNomCourse.setText("jLabel3");
-
-        test.setText("jButton1");
-        test.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testActionPerformed(evt);
             }
         });
 
@@ -92,12 +81,6 @@ public class CreationCoursePanel extends javax.swing.JPanel {
                                 .addComponent(jLabel2)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(resultatNomCourse)
-                .addGap(89, 89, 89)
-                .addComponent(test)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,11 +94,7 @@ public class CreationCoursePanel extends javax.swing.JPanel {
                     .addComponent(ajouterCourse))
                 .addGap(41, 41, 41)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resultatNomCourse)
-                    .addComponent(test))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -128,10 +107,6 @@ public class CreationCoursePanel extends javax.swing.JPanel {
         this.frame.displayCreationEditionPanel(course);
     }//GEN-LAST:event_ajouterCourseActionPerformed
 
-    private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
-        resultatNomCourse.setText("test");
-    }//GEN-LAST:event_testActionPerformed
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ajouterCourse;
@@ -139,7 +114,5 @@ public class CreationCoursePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton menu;
     private javax.swing.JTextField nomCourse;
-    private javax.swing.JLabel resultatNomCourse;
-    private javax.swing.JButton test;
     // End of variables declaration//GEN-END:variables
 }
