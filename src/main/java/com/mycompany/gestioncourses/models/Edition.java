@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Edition extends Model {
     @Id
     @GeneratedValue
@@ -29,16 +28,16 @@ public class Edition extends Model {
     private float distance;
     private boolean annulee;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Etape> etapes;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Participation> participations;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ParticipationEquipe> participationEquipes;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Course course;
 
     public void ajouterEtape(Etape etape) {
