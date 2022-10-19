@@ -8,6 +8,7 @@ import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.views.coureur.ConnexionCoureurPanel;
 import com.mycompany.gestioncourses.views.coureur.ConnexionCoureurPanel;
+import com.mycompany.gestioncourses.models.Equipe;
 import com.mycompany.gestioncourses.views.coureur.MenuCoureurPanel;
 import com.mycompany.gestioncourses.views.organisateur.ConsultationClassementPanel;
 import com.mycompany.gestioncourses.views.organisateur.ConsultationEditionsPanel;
@@ -21,6 +22,12 @@ import com.mycompany.gestioncourses.views.jury.ConsultationClassementJuryPanel;
 import com.mycompany.gestioncourses.views.jury.ConsultationEditionsJuryPanel;
 import com.mycompany.gestioncourses.views.jury.MenuJuryPanel;
 import com.mycompany.gestioncourses.views.organisateur.AjoutEtapePanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.ComposerEquipePanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.ConnexionEquipePanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.ConsultationEditionsEquipePanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.ConsultationInscriptionsEquipePanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.InscriptionEquipePanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.MenuResponsablePanel;
 import java.awt.Container;
 import java.sql.Date;
 import java.util.Collections;
@@ -147,6 +154,10 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new MenuJuryPanel(this));
     }
     
+    public void displayMenuResponsablePanel(Equipe equipe) {
+        this.setMainFrame(new MenuResponsablePanel(this, equipe));
+    }
+    
     public void displayConsultationEditionsJuryPanel() {
         this.setMainFrame(new ConsultationEditionsJuryPanel(this));
     }
@@ -167,6 +178,25 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new InscriptionCoureurPanel(this));
     }
     
+    public void displayInscriptionEquipe() {
+        this.setMainFrame(new InscriptionEquipePanel(this));
+    }
+    
+    public void displayComposerEquipePanel() {
+        this.setMainFrame(new ComposerEquipePanel(this));
+    }
+    
+    public void displayConnexionEquipePanel() {
+        this.setMainFrame(new ConnexionEquipePanel(this));
+    }
+    
+    public void displayConsultationEditionsEquipePanel(Equipe equipe) {
+        this.setMainFrame(new ConsultationEditionsEquipePanel(this, equipe));
+    }
+    
+    public void displayConsultationInscriptionsEquipePanel(Equipe equipe) {
+        this.setMainFrame(new ConsultationInscriptionsEquipePanel(this, equipe));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

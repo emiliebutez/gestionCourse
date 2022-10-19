@@ -1,8 +1,10 @@
 package com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.Equipe;
+import com.mycompany.gestioncourses.models.query.QEquipe;
 
 import java.util.Collections;
+import java.util.List;
 
 public class EquipeService {
     private static EquipeService INSTANCE;
@@ -24,5 +26,9 @@ public class EquipeService {
         equipe.save();
 
         return equipe;
+    }
+    
+    public List<Equipe> equipes() {
+        return new QEquipe().findList();
     }
 }
