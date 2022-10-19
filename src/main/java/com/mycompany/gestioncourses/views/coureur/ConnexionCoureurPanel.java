@@ -74,6 +74,11 @@ public class ConnexionCoureurPanel extends javax.swing.JPanel implements ActionL
         jLabel1.setText("Choix coureur :");
 
         validation.setText("Connexion");
+        validation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                validationActionPerformed(evt);
+            }
+        });
 
         utilisateur.setText("Choix utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +135,13 @@ public class ConnexionCoureurPanel extends javax.swing.JPanel implements ActionL
     private void choixCoureurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixCoureurActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_choixCoureurActionPerformed
+
+    private void validationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validationActionPerformed
+        if (this.coureurSelectionnee != null){
+            this.frame.displayMenuCoureurPanel(this.coureurSelectionnee);
+        }
+        return;
+    }//GEN-LAST:event_validationActionPerformed
 
     @Override
     public void actionPerformed(ActionEvent e) {

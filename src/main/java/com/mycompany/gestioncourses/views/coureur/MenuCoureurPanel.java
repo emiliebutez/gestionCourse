@@ -4,6 +4,7 @@
  */
 package com.mycompany.gestioncourses.views.coureur;
 
+import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
@@ -13,11 +14,13 @@ import com.mycompany.gestioncourses.views.MainFrame;
 public class MenuCoureurPanel extends javax.swing.JPanel {
     
     private MainFrame frame;
+    private Coureur coureur;
 
     /**
      * Creates new form MenuCoureurPanel
      */
-    public MenuCoureurPanel(MainFrame frame) {
+    public MenuCoureurPanel(MainFrame frame, Coureur coureur) {
+        this.coureur = coureur;
         this.frame = frame;
         initComponents();
     }
@@ -89,7 +92,7 @@ public class MenuCoureurPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_utilisateurActionPerformed
 
     private void editionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editionsActionPerformed
-        this.frame.displayConsultationEditionsPanel();
+        this.frame.displayConsultationEditionsCoureurPanel(this.coureur);
     }//GEN-LAST:event_editionsActionPerformed
 
     private void inscriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inscriptionsActionPerformed

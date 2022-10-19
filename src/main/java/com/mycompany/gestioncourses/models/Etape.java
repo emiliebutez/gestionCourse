@@ -33,4 +33,6 @@ public class Etape extends Model {
     private Edition edition;
     @OneToMany
     private List<Performance> performances;
+    private int nbSprint;
+    private int nbCol;
 }

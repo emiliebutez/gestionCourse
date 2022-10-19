@@ -4,11 +4,13 @@
  */
 package com.mycompany.gestioncourses.views.coureur;
 
+import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.views.organisateur.*;
 import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Etape;
 import com.mycompany.gestioncourses.services.CourseService;
+import com.mycompany.gestioncourses.services.EditionService;
 import com.mycompany.gestioncourses.views.MainFrame;
 import com.mycompany.gestioncourses.views.utils.DropDownRenderer;
 import java.awt.event.ActionEvent;
@@ -28,16 +30,19 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private MainFrame frame;   
     private CourseService courseService = CourseService.getInstance();
+    private EditionService editionService = EditionService.getInstance();
     private List<Course> courses = courseService.courses();
     private Course courseSelectionnee;
     private Etape etapeSelectionnee;
     private Edition editionSelectionnee;
+    private Coureur coureur;
     
     /**
      * Creates new form ConsulterEditionsPanel
      */
-    public ConsultationEditionsCoureurPanel(MainFrame frame) {
+    public ConsultationEditionsCoureurPanel(MainFrame frame, Coureur coureur) {
         this.frame = frame;
+        this.coureur = coureur;
         initComponents();
         this.choixCourse.removeAllItems();
         this.choixEdition.removeAllItems();
@@ -62,13 +67,6 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
             return String.valueOf(e.getNumOrdre());
         }));
         
-        this.equipesPanel.setLayout(new BoxLayout(this.equipesPanel, BoxLayout.Y_AXIS));
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-        this.equipesPanel.add(new AffichageEquipePanel());
-
         this.invalidate();
         this.repaint();
     }
@@ -129,6 +127,9 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
     private void selectionEdition(Edition value) {
         this.editionSelectionnee = value;
         if (value != null) {
+            if (this.editionService.participationEdition(this.editionSelectionnee, this.coureur)) {
+                this.ajouterParticipation.setVisible(true);
+            }
             this.choixEtape.removeAllItems();
             if (this.editionSelectionnee.getEtapes() != null) {
                 this.editionSelectionnee.getEtapes()
@@ -153,6 +154,7 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
             this.repaint();
         } else {
             this.informationsEdition.setText("Informations indisponibles");
+            this.ajouterParticipation.setVisible(false);
         }
     }
 
@@ -172,13 +174,13 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
         choixEdition = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         menu = new javax.swing.JButton();
-        equipesPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         choixEtape = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         informationsEdition = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         informationsEtape = new javax.swing.JLabel();
+        ajouterParticipation = new javax.swing.JButton();
 
         jLabel1.setText("Course");
 
@@ -191,68 +193,64 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
             }
         });
 
-        javax.swing.GroupLayout equipesPanelLayout = new javax.swing.GroupLayout(equipesPanel);
-        equipesPanel.setLayout(equipesPanelLayout);
-        equipesPanelLayout.setHorizontalGroup(
-            equipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
-        );
-        equipesPanelLayout.setVerticalGroup(
-            equipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
-        );
-
         jLabel5.setText("Etape");
 
-        jLabel3.setText("Informations edition");
+        jLabel3.setText("Informations édition :");
 
         informationsEdition.setText("Informations non disponibles");
 
-        jLabel4.setText("Informations étape");
+        jLabel4.setText("Informations étape :");
 
         informationsEtape.setText("Informations non disponibles");
+
+        ajouterParticipation.setText("S'inscrire à l'édition");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(menu)
-                .addGap(25, 25, 25))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(informationsEtape)
-                    .addComponent(jLabel4)
-                    .addComponent(informationsEdition)
-                    .addComponent(jLabel3)
-                    .addComponent(equipesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(229, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(informationsEdition)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(262, 262, 262)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(ajouterParticipation)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(informationsEtape)
+                            .addComponent(jLabel4))))
+                .addContainerGap(331, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(menu)
+                .addGap(74, 74, 74))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(menu)
-                .addGap(29, 29, 29)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -264,17 +262,17 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(informationsEdition)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(54, 54, 54)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(informationsEtape)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(equipesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(ajouterParticipation)
+                .addGap(179, 179, 179))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -283,10 +281,9 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,15 +292,15 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
-        this.frame.displayMenuOrganisateur();
+        this.frame.displayMenuCoureurPanel(this.coureur);
     }//GEN-LAST:event_menuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ajouterParticipation;
     private javax.swing.JComboBox<Course> choixCourse;
     private javax.swing.JComboBox<Edition> choixEdition;
     private javax.swing.JComboBox<Etape> choixEtape;
-    private javax.swing.JPanel equipesPanel;
     private javax.swing.JLabel informationsEdition;
     private javax.swing.JLabel informationsEtape;
     private javax.swing.JLabel jLabel1;

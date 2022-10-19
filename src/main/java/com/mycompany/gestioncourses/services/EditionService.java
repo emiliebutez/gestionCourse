@@ -36,6 +36,13 @@ public class EditionService {
     private EditionService() {
 
     }
+    
+    public boolean participationEdition(Edition edition, Coureur coureur) {
+        return new QParticipation()
+                .participationEquipe.edition.eq(edition)
+                .coureur.eq(coureur)
+                .exists();
+    }
 
     public Edition annulerEdition(Edition edition) {
         edition.setAnnulee(true);
@@ -45,13 +52,18 @@ public class EditionService {
     
     public Etape ajouterEtape(Edition edition, String villeDepart, 
             String villeArrivee, String paysDepart, String paysArrivee, 
-            float distance) {
+            float distance, int nbSprint, int nbCol) {
         
         edition.refresh();
         int nbEtape = edition.getEtapes().size();
-        Etape etape = new Etape(null, villeDepart, villeArrivee, paysDepart, paysArrivee, distance, nbEtape + 1, EtatEtape.Attente, edition, Collections.emptyList());
+        Etape etape = new Etape(null, villeDepart, villeArrivee, paysDepart,
+                paysArrivee, distance, nbEtape + 1, EtatEtape.Attente, 
+                edition, Collections.emptyList(), nbSprint, nbCol);
         etape.save();
         edition.refresh();
+        
+        edition.setDistance(distance + edition.getDistance());
+        edition.save();
         return etape;
     }
 

@@ -59,7 +59,7 @@ public class ConsultationInscriptionsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
-        this.frame.displayMenuCoureurPanel();
+        //this.frame.displayMenuCoureurPanel();
     }//GEN-LAST:event_menuActionPerformed
 
 

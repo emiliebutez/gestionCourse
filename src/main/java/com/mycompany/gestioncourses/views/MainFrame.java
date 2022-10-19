@@ -4,22 +4,25 @@
  */
 package com.mycompany.gestioncourses.views;
 
+import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.views.coureur.ConnexionCoureurPanel;
 import com.mycompany.gestioncourses.views.coureur.ConnexionCoureurPanel;
 import com.mycompany.gestioncourses.models.Equipe;
+import com.mycompany.gestioncourses.models.Etape;
+import com.mycompany.gestioncourses.views.coureur.ConsultationEditionsCoureurPanel;
 import com.mycompany.gestioncourses.views.coureur.MenuCoureurPanel;
 import com.mycompany.gestioncourses.views.organisateur.ConsultationClassementPanel;
 import com.mycompany.gestioncourses.views.organisateur.ConsultationEditionsPanel;
 import com.mycompany.gestioncourses.views.organisateur.CreationCoursePanel;
 import com.mycompany.gestioncourses.views.organisateur.CreationEditionPanel;
 import com.mycompany.gestioncourses.views.organisateur.MenuOrganisateurPanel;
-import com.mycompany.gestioncourses.views.coureur.ConsutationEditionsPanel;
 import com.mycompany.gestioncourses.views.coureur.ConsultationInscriptionsPanel;
 import com.mycompany.gestioncourses.views.coureur.InscriptionCoureurPanel;
 import com.mycompany.gestioncourses.views.jury.ConsultationClassementJuryPanel;
 import com.mycompany.gestioncourses.views.jury.ConsultationEditionsJuryPanel;
+import com.mycompany.gestioncourses.views.jury.CourseEnCoursPanel;
 import com.mycompany.gestioncourses.views.jury.MenuJuryPanel;
 import com.mycompany.gestioncourses.views.organisateur.AjoutEtapePanel;
 import com.mycompany.gestioncourses.views.responsableEquipe.ComposerEquipePanel;
@@ -118,12 +121,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new UtilisateurPanel(this));
     }
     
-    public void displayMenuCoureurPanel() {
-        this.setMainFrame(new MenuCoureurPanel(this));
-    }
-    
-    public void displayConsultationEditionsPanel() {
-        this.setMainFrame(new ConsutationEditionsPanel(this));
+    public void displayMenuCoureurPanel(Coureur coureur) {
+        this.setMainFrame(new MenuCoureurPanel(this, coureur));
     }
     
     public void displayConsultationInscriptionsPanel() {
@@ -196,6 +195,14 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void displayConsultationInscriptionsEquipePanel(Equipe equipe) {
         this.setMainFrame(new ConsultationInscriptionsEquipePanel(this, equipe));
+    }
+    
+    public void displayConsultationEditionsCoureurPanel(Coureur coureur) {
+        this.setMainFrame(new ConsultationEditionsCoureurPanel(this, coureur));
+    }
+    
+    public void displayCourseEnCoursPanel(Etape etape) {
+        this.setMainFrame(new CourseEnCoursPanel(this, etape));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
