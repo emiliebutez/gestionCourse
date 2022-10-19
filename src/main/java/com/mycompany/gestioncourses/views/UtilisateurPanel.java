@@ -111,7 +111,7 @@ public class UtilisateurPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_organisateurActionPerformed
 
     private void coureurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coureurActionPerformed
-        this.frame.displayInscriptionCoureurPanel();
+        this.frame.displayConnexionCoureurPanel();
     }//GEN-LAST:event_coureurActionPerformed
 
     private void juryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juryActionPerformed
