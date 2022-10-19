@@ -30,11 +30,17 @@ public class ConnexionEquipePanel extends javax.swing.JPanel implements ActionLi
     public ConnexionEquipePanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
-        this.choixEquipe.addActionListener(this);
-        this.equipes.stream().forEach(c -> this.choixEquipe.addItem(c));
-        this.equipeSelectionnee = this.equipes.isEmpty() ? null : this.equipes.get(0);
-        
-        this.choixEquipe.setRenderer(new DropDownRenderer<Equipe>(c -> c.getNomEquipe()));
+        if (equipes.size() != 0) {
+            this.choixEquipe.addActionListener(this);
+            this.equipes.stream().forEach(c -> this.choixEquipe.addItem(c));
+            this.equipeSelectionnee = this.equipes.isEmpty() ? null : this.equipes.get(0);
+
+            this.choixEquipe.setRenderer(new DropDownRenderer<Equipe>(c -> c.getNomEquipe()));
+        }
+    }
+    
+    public void inscription() {
+        this.frame.displayInscriptionEquipe();
     }
     
     @Override

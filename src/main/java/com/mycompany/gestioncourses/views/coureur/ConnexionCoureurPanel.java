@@ -31,13 +31,16 @@ public class ConnexionCoureurPanel extends javax.swing.JPanel implements ActionL
     public ConnexionCoureurPanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
-        this.choixCoureur.addActionListener(this);
-        this.coureurs.stream().forEach(c -> this.choixCoureur.addItem(c));
-        this.coureurSelectionnee = this.coureurs.isEmpty() ? null : this.coureurs.get(0);
-        this.choixCoureur.setRenderer(new DropDownRenderer<Coureur>(coureur -> String.format("%s %s", coureur.getPrenom(), coureur.getNom())));
+        if (this.coureurs.size() != 0) {
+            this.choixCoureur.addActionListener(this);
+            this.coureurs.stream().forEach(c -> this.choixCoureur.addItem(c));
+            this.coureurSelectionnee = this.coureurs.isEmpty() ? null : this.coureurs.get(0);
+            this.choixCoureur.setRenderer(new DropDownRenderer<Coureur>(coureur -> String.format("%s %s", coureur.getPrenom(), coureur.getNom())));
         
-        this.invalidate();
-        this.repaint();
+            this.invalidate();
+            this.repaint();
+        }
+        
     }
 
     /**
