@@ -28,7 +28,7 @@ public class Edition extends Model {
     private float distance;
     private boolean annulee;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Etape> etapes;
 
     @OneToMany(cascade = CascadeType.ALL)

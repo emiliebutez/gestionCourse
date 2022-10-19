@@ -30,8 +30,8 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
     private CourseService courseService = CourseService.getInstance();
     private EditionService editionService = EditionService.getInstance();
     private List<Course> courses = courseService.courses();
-    private Course courseSelectionnee;
-    private Edition editionSelectionnee;
+    private Course courseSelectionnee = null;
+    private Edition editionSelectionnee = null;
 
     /**
      * Creates new form AjoutEtapePanel
@@ -45,20 +45,27 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
         this.courseSelectionnee = this.courses.isEmpty() ? null : this.courses.get(0);
         
         this.choixCourse.setRenderer(new DropDownRenderer<Course>(c -> c.getNom()));
-        this.choixEdition.setRenderer(new DropDownRenderer<Edition>(e -> DATE_FORMAT.format(e.getDateDebut())));
+        this.choixEdition.setRenderer(new DropDownRenderer<Edition>(e -> {
+            if (e == null) {
+                return "Pas d'édition disponible";
+            }
+            return DATE_FORMAT.format(e.getDateDebut());
+        }));
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.choixCourse) {
             Course value = (Course) this.choixCourse.getSelectedItem();
+            this.courseSelectionnee = value;
             if (value != null) {
-                this.courseSelectionnee = value;
                 this.choixEdition.removeAllItems();
                 this.courseSelectionnee.getEditions()
                         .stream()
                         .forEach(edition -> this.choixEdition.addItem(edition));
                 this.repaint();
+            } else {
+                this.panelnfo.setVisible(false);
             }
             
             return;
@@ -66,8 +73,11 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
         
         if (e.getSource() == this.choixEdition) {
             Edition value = (Edition) this.choixEdition.getSelectedItem();
+            this.editionSelectionnee = value;
             if (value != null) {
-                this.editionSelectionnee = value;
+                this.panelnfo.setVisible(true);
+            } else {
+                this.panelnfo.setVisible(false);
             }
             
             return;
@@ -86,20 +96,22 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
         menu = new javax.swing.JButton();
         choixCourse = new javax.swing.JComboBox<>();
         nomCourse = new javax.swing.JLabel();
+        edition = new javax.swing.JLabel();
+        choixEdition = new javax.swing.JComboBox<>();
+        panelnfo = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        distanceEtape = new javax.swing.JTextField();
+        valider = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         villeDepartEtape = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         paysDepartEtape = new javax.swing.JTextField();
+        msgError = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         villeArriveeEtape = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         paysArriveeEtape = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        distanceEtape = new javax.swing.JTextField();
-        valider = new javax.swing.JButton();
-        edition = new javax.swing.JLabel();
-        choixEdition = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
 
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
@@ -109,6 +121,17 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
         });
 
         nomCourse.setText("Course");
+
+        edition.setText("Edition");
+
+        jLabel13.setText("Distance : ");
+
+        valider.setText("Valider");
+        valider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                validerActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Ville départ : ");
 
@@ -120,111 +143,137 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
 
         jLabel10.setText("Pays :");
 
+        jLabel1.setText("Informations étape :");
+
+        msgError.setForeground(new java.awt.Color(102, 0, 0));
+        msgError.setText(" ");
+
         jLabel11.setText("Ville arrivée : ");
 
         jLabel12.setText("Pays :");
 
-        jLabel13.setText("Distance : ");
-
-        valider.setText("Valider");
-        valider.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                validerActionPerformed(evt);
-            }
-        });
-
-        edition.setText("Edition");
-
-        jLabel1.setText("Informations étape :");
+        javax.swing.GroupLayout panelnfoLayout = new javax.swing.GroupLayout(panelnfo);
+        panelnfo.setLayout(panelnfoLayout);
+        panelnfoLayout.setHorizontalGroup(
+            panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelnfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(msgError, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelnfoLayout.createSequentialGroup()
+                .addContainerGap(128, Short.MAX_VALUE)
+                .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(valider)
+                        .addGroup(panelnfoLayout.createSequentialGroup()
+                            .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelnfoLayout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addGroup(panelnfoLayout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(27, 27, 27)))
+                            .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(villeArriveeEtape)
+                                .addComponent(distanceEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelnfoLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(villeDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(99, 99, 99)
+                .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelnfoLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(paysArriveeEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelnfoLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(paysDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(66, 66, 66))
+        );
+        panelnfoLayout.setVerticalGroup(
+            panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelnfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(msgError)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
+                .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelnfoLayout.createSequentialGroup()
+                        .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(villeDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(villeArriveeEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelnfoLayout.createSequentialGroup()
+                        .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(paysDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(paysArriveeEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))))
+                .addGap(18, 18, 18)
+                .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(distanceEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(valider)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(edition)
-                                .addGap(18, 18, 18)
-                                .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nomCourse)
-                                .addGap(18, 18, 18)
-                                .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(157, 157, 157))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(menu)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelnfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(valider)
+                                .addComponent(menu)
+                                .addGap(16, 16, 16))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jLabel11)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel13)
-                                                .addGap(27, 27, 27)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(villeArriveeEtape)
-                                            .addComponent(distanceEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paysArriveeEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(villeDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel10)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(paysDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(21, 21, 21))))
+                                        .addComponent(edition)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(nomCourse)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(235, 235, 235))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(menu)
-                .addGap(18, 18, 18)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomCourse)
                     .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edition)
                     .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(villeDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(paysDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(villeArriveeEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paysArriveeEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(distanceEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(valider)
-                .addGap(33, 33, 33))
+                .addComponent(panelnfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -237,15 +286,20 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
     }//GEN-LAST:event_villeDepartEtapeActionPerformed
 
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
-        editionService.ajouterEtape(
-                editionSelectionnee,
-                villeDepartEtape.getText(),
-                villeArriveeEtape.getText(),
-                paysDepartEtape.getText(),
-                paysArriveeEtape.getText(),
-                Float.parseFloat(distanceEtape.getText())
-        );
-        frame.displayMenuOrganisateur();
+        if (this.editionSelectionnee != null ){
+            editionService.ajouterEtape(
+                    editionSelectionnee,
+                    villeDepartEtape.getText(),
+                    villeArriveeEtape.getText(),
+                    paysDepartEtape.getText(),
+                    paysArriveeEtape.getText(),
+                    Float.parseFloat(distanceEtape.getText())
+            );
+            frame.displayMenuOrganisateur();
+        }
+        else {
+            this.msgError.setText("Cette course n'a pas d'édition");
+        }
     }//GEN-LAST:event_validerActionPerformed
 
 
@@ -261,7 +315,9 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JButton menu;
+    private javax.swing.JLabel msgError;
     private javax.swing.JLabel nomCourse;
+    private javax.swing.JPanel panelnfo;
     private javax.swing.JTextField paysArriveeEtape;
     private javax.swing.JTextField paysDepartEtape;
     private javax.swing.JButton valider;

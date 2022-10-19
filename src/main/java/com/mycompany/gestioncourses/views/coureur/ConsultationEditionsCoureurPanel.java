@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.gestioncourses.views.organisateur;
+package com.mycompany.gestioncourses.views.coureur;
 
+import com.mycompany.gestioncourses.views.organisateur.*;
 import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Etape;
@@ -22,7 +23,7 @@ import javax.swing.JComboBox;
  *
  * @author Emilie
  */
-public class ConsultationEditionsPanel extends javax.swing.JPanel implements ActionListener {
+public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel implements ActionListener {
     
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private MainFrame frame;   
@@ -35,7 +36,7 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
     /**
      * Creates new form ConsulterEditionsPanel
      */
-    public ConsultationEditionsPanel(MainFrame frame) {
+    public ConsultationEditionsCoureurPanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
         this.choixCourse.removeAllItems();
