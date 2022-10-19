@@ -182,8 +182,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new InscriptionEquipePanel(this));
     }
     
-    public void displayComposerEquipePanel() {
-        this.setMainFrame(new ComposerEquipePanel(this));
+    public void displayComposerEquipePanel(Equipe equipe, Edition editionSelectionnee) {
+        this.setMainFrame(new ComposerEquipePanel(this, equipe, editionSelectionnee));
     }
     
     public void displayConnexionEquipePanel() {

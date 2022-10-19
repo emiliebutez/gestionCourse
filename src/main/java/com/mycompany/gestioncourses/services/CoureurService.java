@@ -1,7 +1,10 @@
 package com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.Coureur;
+import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.query.QCoureur;
+import com.mycompany.gestioncourses.models.query.QParticipation;
+import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
 
 import java.util.Collections;
 import java.util.Date;
@@ -9,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class CoureurService {
     private static CoureurService INSTANCE;
@@ -48,5 +53,17 @@ public class CoureurService {
                 .findStream()
                 .forEach(c -> res.put(c.getNom(), c));
         return res;
+    }
+
+    public List<Coureur> coureurSansEquipe(Edition editionSelectionnee) {
+        final List<Integer> coureursAvecParticipation = new QParticipation()
+                .participationEquipe.edition.eq(editionSelectionnee)
+                .findStream()
+                .map(p -> p.getCoureur().getId())
+                .collect(Collectors.toList());
+        
+        return new QCoureur()
+                .id.notIn(coureursAvecParticipation)
+                .findList();
     }
 }

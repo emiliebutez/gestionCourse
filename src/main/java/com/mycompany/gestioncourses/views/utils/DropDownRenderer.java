@@ -23,6 +23,9 @@ public class DropDownRenderer<T> extends DefaultListCellRenderer {
     
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean selected, boolean hasFocus) {
-        return super.getListCellRendererComponent(list, this.getter.apply((T) value), index, selected, hasFocus);
+        String toDisplay = value == null
+                ? "Aucun choix"
+                : this.getter.apply((T) value);
+        return super.getListCellRendererComponent(list, toDisplay, index, selected, hasFocus);
     }
 }

@@ -74,7 +74,6 @@ public class CourseService {
                 false,
                 emptyList(),
                 emptyList(),
-                emptyList(),
                 course
         );
         

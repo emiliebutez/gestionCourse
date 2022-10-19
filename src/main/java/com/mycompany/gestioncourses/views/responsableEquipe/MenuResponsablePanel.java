@@ -24,8 +24,8 @@ public class MenuResponsablePanel extends javax.swing.JPanel {
 
     public MenuResponsablePanel(MainFrame frame, Equipe equipe) {
         this.frame = frame;
-        initComponents();
         this.equipe = equipe;
+        initComponents();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,7 +70,7 @@ public class MenuResponsablePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addComponent(consultationEd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(consultationInscrip)
                 .addGap(85, 85, 85))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()

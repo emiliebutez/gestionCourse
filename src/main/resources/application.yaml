@@ -4,7 +4,8 @@ ebean:
     generate: true
     dbName: course
     dllMode: migrations
-
+    # run: true
+    
 datasource:
   db:
     username: a

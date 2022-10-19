@@ -9,6 +9,8 @@ import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Equipe;
 import com.mycompany.gestioncourses.models.Etape;
 import com.mycompany.gestioncourses.services.CourseService;
+import com.mycompany.gestioncourses.services.EditionService;
+import com.mycompany.gestioncourses.services.ParticipationEquipeService;
 import com.mycompany.gestioncourses.views.MainFrame;
 import com.mycompany.gestioncourses.views.organisateur.AffichageEquipePanel;
 import com.mycompany.gestioncourses.views.utils.DropDownRenderer;
@@ -30,6 +32,8 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
      */
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");  
     private CourseService courseService = CourseService.getInstance();
+    private EditionService editionService = EditionService.getInstance();
+    private ParticipationEquipeService participationEquipeService = ParticipationEquipeService.getInstance();
     private List<Course> courses = courseService.courses();
     private Course courseSelectionnee;
     private Etape etapeSelectionnee;
@@ -42,6 +46,7 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
      */
     public ConsultationEditionsEquipePanel(MainFrame frame , Equipe equipe) {
         this.frame = frame;
+        this.equipe = equipe;
         initComponents();
         this.choixCourse.addActionListener(this);
         this.choixEdition.addActionListener(this);
@@ -138,12 +143,35 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
                             value.getDistance()
                     )
             );
-            this.repaint();
         } else {
             this.informationsEdition.setText("Informations indisponibles");
         }
+        
+        this.mettreAJourInscription(value, this.equipe);
+        
+        this.repaint();
     }
 
+    
+    private void mettreAJourInscription(Edition edition, Equipe equipe) {
+        if (edition == null || equipe == null) {
+            this.labelInscription.setVisible(false);
+            this.buttonInscription.setVisible(false);
+            return;
+        }
+        
+        if (this.editionService.estInscrit(edition, this.equipe)) {
+            this.labelInscription.setText("Vous êtes inscrit à cette édition");
+            this.labelInscription.setVisible(true);
+            this.buttonInscription.setVisible(false);
+            return;
+        }
+        
+        
+        this.labelInscription.setText("Vous n'êtes pas inscrit à cette édition");
+        this.buttonInscription.setVisible(true);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -164,6 +192,8 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
         jLabel5 = new javax.swing.JLabel();
         informationsEtape = new javax.swing.JLabel();
         menu = new javax.swing.JButton();
+        buttonInscription = new javax.swing.JButton();
+        labelInscription = new javax.swing.JLabel();
 
         jLabel1.setText("Course :");
 
@@ -191,6 +221,15 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
                 menuActionPerformed(evt);
             }
         });
+
+        buttonInscription.setText("S'inscrire");
+        buttonInscription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInscriptionActionPerformed(evt);
+            }
+        });
+
+        labelInscription.setText("Vous n'êtes pas inscrit à cette edition");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -220,6 +259,10 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelInscription)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonInscription))
                             .addComponent(informationsEtape)
                             .addComponent(jLabel5)
                             .addComponent(informationsEdition)
@@ -243,7 +286,11 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonInscription)
+                    .addComponent(labelInscription))
+                .addGap(3, 3, 3)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(informationsEdition)
@@ -263,8 +310,17 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
         this.frame.displayMenuOrganisateur();
     }//GEN-LAST:event_menuActionPerformed
 
+    private void buttonInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInscriptionActionPerformed
+        if (this.equipe == null || this.editionSelectionnee == null) {
+            return;
+        }
+        
+        this.frame.displayComposerEquipePanel(this.equipe, this.editionSelectionnee);
+    }//GEN-LAST:event_buttonInscriptionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonInscription;
     private javax.swing.JComboBox<Course> choixCourse;
     private javax.swing.JComboBox<Edition> choixEdition;
     private javax.swing.JComboBox<Etape> choixEtape;
@@ -275,6 +331,7 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel labelInscription;
     private javax.swing.JButton menu;
     // End of variables declaration//GEN-END:variables
 }
