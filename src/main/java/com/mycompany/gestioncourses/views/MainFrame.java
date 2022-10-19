@@ -6,6 +6,8 @@ package com.mycompany.gestioncourses.views;
 
 import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.models.Edition;
+import com.mycompany.gestioncourses.views.coureur.ConnexionCoureurPanel;
+import com.mycompany.gestioncourses.views.coureur.ConnexionCoureurPanel;
 import com.mycompany.gestioncourses.views.coureur.MenuCoureurPanel;
 import com.mycompany.gestioncourses.views.organisateur.ConsultationClassementPanel;
 import com.mycompany.gestioncourses.views.organisateur.ConsultationEditionsPanel;
@@ -14,6 +16,7 @@ import com.mycompany.gestioncourses.views.organisateur.CreationEditionPanel;
 import com.mycompany.gestioncourses.views.organisateur.MenuOrganisateurPanel;
 import com.mycompany.gestioncourses.views.coureur.ConsutationEditionsPanel;
 import com.mycompany.gestioncourses.views.coureur.ConsultationInscriptionsPanel;
+import com.mycompany.gestioncourses.views.coureur.InscriptionCoureurPanel;
 import com.mycompany.gestioncourses.views.jury.ConsultationClassementJuryPanel;
 import com.mycompany.gestioncourses.views.jury.ConsultationEditionsJuryPanel;
 import com.mycompany.gestioncourses.views.jury.MenuJuryPanel;
@@ -154,6 +157,14 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void displayAjoutEtapePanel() {
         this.setMainFrame(new AjoutEtapePanel(this));
+    }
+    
+    public void displayConnexionCoureurPanel() {
+        this.setMainFrame(new ConnexionCoureurPanel(this));
+    }
+    
+    public void displayInscriptionCoureurPanel() {
+        this.setMainFrame(new InscriptionCoureurPanel(this));
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

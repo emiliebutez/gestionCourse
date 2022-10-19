@@ -5,7 +5,9 @@ import com.mycompany.gestioncourses.models.query.QCoureur;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class CoureurService {
@@ -35,5 +37,16 @@ public class CoureurService {
                 .prenom.icontains(prenom)
                 .findList();
     }
-
+    
+    public List<Coureur> coureurs() {
+        return new QCoureur().findList();
+    }
+    
+    public Map<String, Coureur> coureursParNom() {
+        HashMap<String, Coureur> res = new HashMap<>();
+        new QCoureur()
+                .findStream()
+                .forEach(c -> res.put(c.getNom(), c));
+        return res;
+    }
 }
