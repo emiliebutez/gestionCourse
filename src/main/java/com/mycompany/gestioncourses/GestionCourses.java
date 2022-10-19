@@ -56,10 +56,11 @@ public class GestionCourses {
 
            //Ajouter les editions a la course
 
-           c1.ajouterEdition(e1);
-           c1.ajouterEdition(e2);
-           c2.ajouterEdition(ed1);
-           c2.ajouterEdition(ed2);
+           c1.addEdition(e1);
+           c1.addEdition(e2);
+           c2.addEdition(ed1);
+           c2.addEdition(ed2);
+           
            //Afficher les editions de la course
            System.out.println("---------------COURSE 1--------------------");
            c1.afficherListEdition();
@@ -133,5 +134,5 @@ public class GestionCourses {
 //        edition.save();
 //
 //        System.out.println(new QCourse().findList().stream().map(c -> c.getEditions().stream().map(e -> e.getId()).collect(Collectors.toList())).collect(Collectors.toList()));
-//    }
+    }
 }

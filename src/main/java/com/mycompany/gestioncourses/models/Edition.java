@@ -56,10 +56,10 @@ public class Edition extends Model {
         this.paysArrivee = paysArrivee;
         this.distance = distance;
         this.annulee = annulee;
-        this.etapes = new List<Etape>();
-        this.participations = new List<Participation>();
-        this.participationEquipes = new List<ParticipationEquipe>();
-        this.course = course;
+        //this.etapes = new List<Etape>();
+        //this.participations = new List<Participation>();
+        //this.participationEquipes = new List<ParticipationEquipe>();
+        //this.course = course;
     }
 
 

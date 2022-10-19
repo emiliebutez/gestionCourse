@@ -33,7 +33,7 @@ public class Course extends Model implements Serializable {
     public Course(Integer id, String nom) {
         this.id = id;
         this.nom = nom;
-        this.editions = new List<Edition>();
+        //this.editions = new List<Edition>();
     }
 
     public void afficherEdition(Edition edition){
