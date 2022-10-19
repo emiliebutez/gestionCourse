@@ -4,7 +4,23 @@
  */
 package com.mycompany.gestioncourses.views;
 
+import com.mycompany.gestioncourses.models.Course;
+import com.mycompany.gestioncourses.models.Edition;
+import com.mycompany.gestioncourses.views.coureur.MenuCoureurPanel;
+import com.mycompany.gestioncourses.views.organisateur.ConsultationClassementPanel;
+import com.mycompany.gestioncourses.views.organisateur.ConsultationEditionsPanel;
+import com.mycompany.gestioncourses.views.organisateur.CreationCoursePanel;
+import com.mycompany.gestioncourses.views.organisateur.CreationEditionPanel;
+import com.mycompany.gestioncourses.views.organisateur.MenuOrganisateurPanel;
+import com.mycompany.gestioncourses.views.coureur.ConsutationEditionsPanel;
+import com.mycompany.gestioncourses.views.coureur.ConsultationInscriptionsPanel;
+import com.mycompany.gestioncourses.views.jury.ConsultationClassementJuryPanel;
+import com.mycompany.gestioncourses.views.jury.ConsultationEditionsJuryPanel;
+import com.mycompany.gestioncourses.views.jury.MenuJuryPanel;
+import com.mycompany.gestioncourses.views.organisateur.AjoutEtapePanel;
 import java.awt.Container;
+import java.sql.Date;
+import java.util.Collections;
 
 /**
  *
@@ -75,7 +91,7 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 MainFrame frame = new MainFrame();
-                frame.setContentPane(new UtilisateurPanel(frame));
+                frame.setMainFrame(new UtilisateurPanel(frame));
                 frame.setVisible(true);
             }
         });
@@ -83,12 +99,29 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void setMainFrame(Container c) {
         this.setContentPane(c);
+        this.pack();
         this.revalidate();
         this.repaint();
     }
     
     public void displayUtilisateur() {
         this.setMainFrame(new UtilisateurPanel(this));
+    }
+    
+    public void displayMenuCoureurPanel() {
+        this.setMainFrame(new MenuCoureurPanel(this));
+    }
+    
+    public void displayConsultationEditionsPanel() {
+        this.setMainFrame(new ConsutationEditionsPanel(this));
+    }
+    
+    public void displayConsultationInscriptionsPanel() {
+        this.setMainFrame(new ConsultationInscriptionsPanel(this));
+    }
+    
+    public void displayConsulterEditionsPanel() {
+        this.setMainFrame(new ConsultationEditionsPanel(this));
     }
     
     public void displayMenuOrganisateur() {
@@ -99,10 +132,30 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new CreationCoursePanel(this));
     }
     
-    public void displayCreationEditionPanel() {
-        this.setMainFrame(new CreationEditionPanel(this));
+    public void displayCreationEditionPanel(Course course) {
+        this.setMainFrame(new CreationEditionPanel(this, course));
     }
-
+    
+    public void displayConsulterClassementPanel() {
+        this.setMainFrame(new ConsultationClassementPanel(this));
+    }
+    
+    public void displayMenuJuryPanel() {
+        this.setMainFrame(new MenuJuryPanel(this));
+    }
+    
+    public void displayConsultationEditionsJuryPanel() {
+        this.setMainFrame(new ConsultationEditionsJuryPanel(this));
+    }
+    
+    public void displayConsultationClassementJuryPanel() {
+        this.setMainFrame(new ConsultationClassementJuryPanel(this));
+    }
+    
+    public void displayAjoutEtapePanel() {
+        this.setMainFrame(new AjoutEtapePanel(this));
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

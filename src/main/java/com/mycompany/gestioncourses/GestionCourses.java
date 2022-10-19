@@ -29,7 +29,7 @@ public class GestionCourses {
            Date date1 = new Date(2022, 10, 12);
            Date date2 = new Date(2022, 11, 12);
            Date date3 = new Date(2022, 12, 12);
-           
+
            //Creation d'une course
             System.out.println("-----------------------------------------------------------");
             System.out.println("CREATION D'UNE COURSE");
@@ -49,13 +49,13 @@ public class GestionCourses {
            Edition e2 = new Edition(2,2023,date2,date3, "Monaco", "Marseille", "France", "France",  10, false);
            Edition ed1 = new Edition(3,2022,date1 ,date2 , "Toulouse", "Monaco", "France", "France",  15, false);
            Edition ed2 = new Edition(4,2023,date2,date3, "Toulouse", "Monaco", "France", "France",  10, false);
-           
+
             System.out.println("-----------------------------------------------------------");
             System.out.println("LISTE DES EDITIONS D'UNE COURSE");
             System.out.println("-----------------------------------------------------------");
 
            //Ajouter les editions a la course
-           
+
            c1.ajouterEdition(e1);
            c1.ajouterEdition(e2);
            c2.ajouterEdition(ed1);
@@ -65,7 +65,7 @@ public class GestionCourses {
            c1.afficherListEdition();
            System.out.println("---------------COURSE 2--------------------");
            c2.afficherListEdition();
-           
+
            System.out.println("-----------------------------------------------------------");
            System.out.println("LISTE DES ETAPES DE LA COURSE 1 EDITION 1");
            System.out.println("-----------------------------------------------------------");
@@ -88,14 +88,14 @@ public class GestionCourses {
            e1.ajouterEtape(etape6);
            e1.ajouterEtape(etape7);
            e1.ajouterEtape(etape8);
-          
+
            //Afficher l'etape de l'edition
            e1.afficherEtapes();
-           
+
            System.out.println("-----------------------------------------------------------");
            System.out.println("LISTE DES ETAPES DE LA COURSE 1 EDITION 2");
            System.out.println("-----------------------------------------------------------");
-         
+
            //Affectation de l'etape a la course
            e2.ajouterEtape(etape1);
            e2.ajouterEtape(etape2);
@@ -105,11 +105,11 @@ public class GestionCourses {
            e2.ajouterEtape(etape6);
            e2.ajouterEtape(etape7);
            e2.ajouterEtape(etape8);
-          
+
            //Afficher l'etape de l'edition
            e2.afficherEtapes();
-           
-           
+
+
 //        Database db = DB.getDefault();
 //        var course = new Course(null, "CastràToulouse", Collections.emptyList());
 //        course.save();
@@ -134,7 +134,4 @@ public class GestionCourses {
 //
 //        System.out.println(new QCourse().findList().stream().map(c -> c.getEditions().stream().map(e -> e.getId()).collect(Collectors.toList())).collect(Collectors.toList()));
 //    }
-}
-
-   
 }

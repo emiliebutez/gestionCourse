@@ -22,9 +22,10 @@ public class Course extends Model implements Serializable {
     @GeneratedValue
     private Integer id;
     private String nom;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private ArrayList<Edition>editions;
-    
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Edition> editions;
+
     public String afficherNom(){
         return this.nom;
     }
@@ -32,9 +33,9 @@ public class Course extends Model implements Serializable {
     public Course(Integer id, String nom) {
         this.id = id;
         this.nom = nom;
-        this.editions = new ArrayList<Edition>();
+        this.editions = new List<Edition>();
     }
-    
+
     public void afficherEdition(Edition edition){
        for(int i=0;i<this.editions.size();i++){
         if(this.editions.get(i) == edition){
@@ -44,31 +45,27 @@ public class Course extends Model implements Serializable {
         }
       }
     }
-    
+
     public void afficherListEdition(){
         for(Edition e : editions){
             System.out.println(e.getId()+"\t"+e.getAnnee()+"\t"+e.getDateDebut()+"\t"+e.getDateFin()+"\t"+e.getPaysDepart()+"\t"+e.getPaysArrivee()+"\t"+e.getDistance());
         }
     }
-    
-    public void ajouterEdition(Edition edition){
-        this.editions.add(edition);
-    }
-    
+
     public void rechercherCourse(String nomCourse){
         //this.editions.contains(nomCourse);
     }
-    
-    public ArrayList<Edition>recupererListesEditions(){
+
+    public List<Edition>recupererListesEditions(){
          Iterator iter = editions.iterator();
-         ArrayList<Edition>list = new ArrayList<>();
+         List<Edition>list = new ArrayList<>();
         while (iter.hasNext()){
             list.add((Edition) iter.next());
         }
         return list;
     }
-    
-    
-    
-   
+
+    public void addEdition(Edition edition){
+        this.editions.add(edition);
+    }
 }

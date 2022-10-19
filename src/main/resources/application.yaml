@@ -1,12 +1,12 @@
 ebean:
   ddl:
-    platform: h2
+    platform: sqlite
     generate: true
-    run: true
-    ddlMode: create
+    dbName: course
+    dllMode: migrations
 
 datasource:
   db:
-    username: sa
-    password: sa
-    url: jdbc:h2:file:~/gestioncourse/database
+    username: a
+    password: a
+    url: jdbc:sqlite:.database.db

@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.gestioncourses.views;
+package com.mycompany.gestioncourses.views.organisateur;
+
+import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
  *
@@ -34,8 +36,9 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
         ConsulterEdition = new javax.swing.JButton();
         consulterClassement = new javax.swing.JButton();
         utilisateur = new javax.swing.JButton();
+        ajouterEtape = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel1.setText("Accueil Organisateur");
 
         creationCourse.setText("Création d'une course");
@@ -53,8 +56,18 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
         });
 
         ConsulterEdition.setText("Consulter édition");
+        ConsulterEdition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsulterEditionActionPerformed(evt);
+            }
+        });
 
         consulterClassement.setText("Consultation classement");
+        consulterClassement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consulterClassementActionPerformed(evt);
+            }
+        });
 
         utilisateur.setText("Choix Utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
@@ -63,42 +76,54 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
             }
         });
 
+        ajouterEtape.setText("Ajouter étape");
+        ajouterEtape.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajouterEtapeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(utilisateur)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addComponent(creationCourse)
-                            .addGap(40, 40, 40)
-                            .addComponent(creationEdition)
-                            .addGap(38, 38, 38)
-                            .addComponent(ConsulterEdition)
-                            .addGap(44, 44, 44)
-                            .addComponent(consulterClassement))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(330, 330, 330)
-                            .addComponent(jLabel1))))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(utilisateur))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(creationCourse)
+                        .addGap(41, 41, 41)
+                        .addComponent(creationEdition)
+                        .addGap(42, 42, 42)
+                        .addComponent(ajouterEtape)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addComponent(ConsulterEdition)
+                        .addGap(37, 37, 37)
+                        .addComponent(consulterClassement)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(401, 401, 401)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(utilisateur)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel1)
-                .addGap(56, 56, 56)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(creationCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(creationEdition)
                     .addComponent(ConsulterEdition)
-                    .addComponent(consulterClassement))
-                .addContainerGap(123, Short.MAX_VALUE))
+                    .addComponent(consulterClassement)
+                    .addComponent(ajouterEtape))
+                .addGap(123, 123, 123))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -107,16 +132,29 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_creationCourseActionPerformed
 
     private void creationEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationEditionActionPerformed
-        frame.displayCreationEditionPanel();
+        frame.displayCreationEditionPanel(null);
     }//GEN-LAST:event_creationEditionActionPerformed
 
     private void utilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utilisateurActionPerformed
         frame.displayUtilisateur();
     }//GEN-LAST:event_utilisateurActionPerformed
 
+    private void ConsulterEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsulterEditionActionPerformed
+        frame.displayConsulterEditionsPanel();
+    }//GEN-LAST:event_ConsulterEditionActionPerformed
+
+    private void consulterClassementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterClassementActionPerformed
+        frame.displayConsulterClassementPanel();
+    }//GEN-LAST:event_consulterClassementActionPerformed
+
+    private void ajouterEtapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterEtapeActionPerformed
+        frame.displayAjoutEtapePanel();
+    }//GEN-LAST:event_ajouterEtapeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ConsulterEdition;
+    private javax.swing.JButton ajouterEtape;
     private javax.swing.JButton consulterClassement;
     private javax.swing.JButton creationCourse;
     private javax.swing.JButton creationEdition;

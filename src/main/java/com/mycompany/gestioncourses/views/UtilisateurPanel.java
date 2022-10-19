@@ -46,10 +46,20 @@ public class UtilisateurPanel extends javax.swing.JPanel {
         });
 
         coureur.setText("Coureur");
+        coureur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                coureurActionPerformed(evt);
+            }
+        });
 
         responsableEquipe.setText("Responsable d'équipe");
 
         jury.setText("Jury");
+        jury.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                juryActionPerformed(evt);
+            }
+        });
 
         membreFFC.setText("Membre FFC");
 
@@ -94,6 +104,14 @@ public class UtilisateurPanel extends javax.swing.JPanel {
     private void organisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organisateurActionPerformed
         frame.displayMenuOrganisateur();
     }//GEN-LAST:event_organisateurActionPerformed
+
+    private void coureurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coureurActionPerformed
+        this.frame.displayMenuCoureurPanel();
+    }//GEN-LAST:event_coureurActionPerformed
+
+    private void juryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juryActionPerformed
+        this.frame.displayMenuJuryPanel();
+    }//GEN-LAST:event_juryActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
