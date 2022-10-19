@@ -29,8 +29,9 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
     private CourseService courseService = CourseService.getInstance();
     private List<Course> courses = courseService.courses();
     private Course courseSelectionnee;
-    private Edition editionSelectionnee;
     private Etape etapeSelectionnee;
+    private Edition editionSelectionnee;
+    
     /**
      * Creates new form ConsulterEditionsPanel
      */
@@ -74,13 +75,29 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
         }
         
         if (e.getSource() == this.choixEtape) {
-            Etape value = (Etape) this.choixEtape.getSelectedItem();
-            this.etapeSelectionnee = value;
-
-            if (value != null) {
-            }
-            
+            selectionEtape((Etape) this.choixEtape.getSelectedItem());
             return;
+        }
+    }
+    
+    private void selectionEtape(Etape value) {
+        this.etapeSelectionnee = value;
+        if (value != null) {
+            this.informationsEtape.setText(
+                    String.format(
+                            "<html>" +
+                                "Départ: %s, %s<br/>" + 
+                                    "Arrivée: %s, %s<br/>" +
+                                    "Distance: %fkm" +
+                                    "</html>", 
+                            value.getVilleDepart(),value.getPaysDepart(),
+                            value.getPaysDepart(), value.getPaysArrivee(),
+                            value.getDistance()
+                    )
+            );
+            this.repaint();
+        } else {
+            this.informationsEtape.setText("Informations indisponibles");
         }
     }
     
@@ -200,7 +217,7 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
                         .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(586, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(menu)
                 .addGap(25, 25, 25))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -211,7 +228,7 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
                     .addComponent(informationsEdition)
                     .addComponent(jLabel3)
                     .addComponent(equipesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
