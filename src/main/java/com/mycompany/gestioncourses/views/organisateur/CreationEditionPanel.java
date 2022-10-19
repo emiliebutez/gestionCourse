@@ -5,7 +5,6 @@
 package com.mycompany.gestioncourses.views.organisateur;
 
 import com.mycompany.gestioncourses.controllers.OrganisateurController;
-import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
@@ -19,7 +18,7 @@ public class CreationEditionPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreationCoursePanel
      */
-    public CreationEditionPanel(MainFrame frame, Course course) {
+    public CreationEditionPanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
         this.controller = new OrganisateurController();

@@ -2,24 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.mycompany.gestioncourses.views.jury;
+package com.mycompany.gestioncourses.views.responsableEquipe;
 
 import com.mycompany.gestioncourses.views.MainFrame;
 
 /**
  *
- * @author Emilie
+ * @author ams
  */
-public class MenuJuryPanel extends javax.swing.JPanel {
-    
-    private MainFrame frame;
+public class MenuResponsableEquipePanel extends javax.swing.JPanel {
 
+    private MainFrame frame; 
     /**
-     * Creates new form MenuJuryPanel
+     * Creates new form MenuResponsableEquipePanel
      * @param frame
      */
-    public MenuJuryPanel(MainFrame frame) {
-        this.frame = frame;
+    public MenuResponsableEquipePanel(MainFrame frame) {
+        this.frame = frame; 
         initComponents();
     }
 
@@ -33,8 +32,8 @@ public class MenuJuryPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         utilisateur = new javax.swing.JButton();
-        editions = new javax.swing.JButton();
-        classement = new javax.swing.JButton();
+        consultationEditionResponsable = new javax.swing.JButton();
+        consultationInscriptionResponsable = new javax.swing.JButton();
 
         utilisateur.setText("Choix utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
@@ -43,17 +42,17 @@ public class MenuJuryPanel extends javax.swing.JPanel {
             }
         });
 
-        editions.setText("Consulter éditions");
-        editions.addActionListener(new java.awt.event.ActionListener() {
+        consultationEditionResponsable.setText("Consultation d'édition ");
+        consultationEditionResponsable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editionsActionPerformed(evt);
+                consultationEditionResponsableActionPerformed(evt);
             }
         });
 
-        classement.setText("Consulter classement");
-        classement.addActionListener(new java.awt.event.ActionListener() {
+        consultationInscriptionResponsable.setText("Consultation des inscriptions");
+        consultationInscriptionResponsable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                classementActionPerformed(evt);
+                consultationInscriptionResponsableActionPerformed(evt);
             }
         });
 
@@ -66,41 +65,42 @@ public class MenuJuryPanel extends javax.swing.JPanel {
                 .addComponent(utilisateur)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(editions)
-                .addGap(18, 18, 18)
-                .addComponent(classement)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(consultationEditionResponsable)
+                .addGap(77, 77, 77)
+                .addComponent(consultationInscriptionResponsable)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(utilisateur)
-                .addGap(104, 104, 104)
+                .addGap(117, 117, 117)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editions)
-                    .addComponent(classement))
-                .addContainerGap(132, Short.MAX_VALUE))
+                    .addComponent(consultationEditionResponsable)
+                    .addComponent(consultationInscriptionResponsable))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void consultationEditionResponsableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationEditionResponsableActionPerformed
+        this.frame.displayConsultationEditionResponsablePanel();
+    }//GEN-LAST:event_consultationEditionResponsableActionPerformed
 
     private void utilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utilisateurActionPerformed
         this.frame.displayUtilisateur();
     }//GEN-LAST:event_utilisateurActionPerformed
 
-    private void editionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editionsActionPerformed
-        this.frame.displayConsultationEditionsJuryPanel();
-    }//GEN-LAST:event_editionsActionPerformed
-
-    private void classementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classementActionPerformed
-        this.frame.displayConsultationClassementJuryPanel();
-    }//GEN-LAST:event_classementActionPerformed
-
+    private void consultationInscriptionResponsableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationInscriptionResponsableActionPerformed
+        this.frame.displayConsultationInscriptionResponsablePanel();
+    }//GEN-LAST:event_consultationInscriptionResponsableActionPerformed
+                                         
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton classement;
-    private javax.swing.JButton editions;
+    private javax.swing.JButton consultationEditionResponsable;
+    private javax.swing.JButton consultationInscriptionResponsable;
     private javax.swing.JButton utilisateur;
     // End of variables declaration//GEN-END:variables
 }

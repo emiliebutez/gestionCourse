@@ -22,11 +22,11 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Component id="editions" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="classement" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="76" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <Component id="consultationEditionResponsable" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+              <Component id="consultationInscriptionResponsable" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -35,12 +35,12 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="utilisateur" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="editions" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="classement" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="consultationEditionResponsable" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="consultationInscriptionResponsable" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="132" max="32767" attributes="0"/>
+              <EmptySpace pref="131" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,20 +54,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="utilisateurActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="editions">
+    <Component class="javax.swing.JButton" name="consultationEditionResponsable">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Consulter &#xe9;ditions"/>
+        <Property name="text" type="java.lang.String" value="Consultation d&apos;&#xe9;dition "/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editionsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultationEditionResponsableActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="classement">
+    <Component class="javax.swing.JButton" name="consultationInscriptionResponsable">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Consulter classement"/>
+        <Property name="text" type="java.lang.String" value="Consultation des inscriptions"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="classementActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultationInscriptionResponsableActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

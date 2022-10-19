@@ -17,6 +17,9 @@ import com.mycompany.gestioncourses.views.coureur.ConsultationInscriptionsPanel;
 import com.mycompany.gestioncourses.views.jury.ConsultationClassementJuryPanel;
 import com.mycompany.gestioncourses.views.jury.ConsultationEditionsJuryPanel;
 import com.mycompany.gestioncourses.views.jury.MenuJuryPanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.ConsultationEditionResponsablePanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.ConsultationInscriptionResponsablePanel;
+import com.mycompany.gestioncourses.views.responsableEquipe.MenuResponsableEquipePanel;
 import java.awt.Container;
 import java.sql.Date;
 import java.util.Collections;
@@ -148,6 +151,17 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void displayConsultationClassementJuryPanel() {
         this.setMainFrame(new ConsultationClassementJuryPanel(this));
+    }
+    
+    public void displayMenuResponsableEquipePanel(){
+        this.setMainFrame(new MenuResponsableEquipePanel(this));
+    }
+    public void displayConsultationEditionResponsablePanel(){
+        this.setMainFrame(new ConsultationEditionResponsablePanel(this));
+    }
+    
+    public void displayConsultationInscriptionResponsablePanel(){
+        this.setMainFrame(new ConsultationInscriptionResponsablePanel(this));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
