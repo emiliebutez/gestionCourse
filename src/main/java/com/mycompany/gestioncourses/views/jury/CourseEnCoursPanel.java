@@ -334,7 +334,7 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
         this.panelTemps.setVisible(false);
         if (this.etape.getNbCol() > 0) {
             this.pointGrimp.setVisible(true);
-            for (int i = 0; i < this.etape.getNbSprint(); i++) {
+            for (int i = 0; i < this.etape.getNbCol(); i++) {
                this.numSprintOuGrimp.addItem(i + 1);
             }
         }

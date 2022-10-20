@@ -105,6 +105,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
         coureur9 = new javax.swing.JComboBox<>();
         coureur10 = new javax.swing.JComboBox<>();
         labelErreur = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         jLabel6.setText("jLabel6");
 
@@ -147,6 +148,8 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
 
         jLabel12.setText("Coureur 10 :");
 
+        jLabel13.setText("jLabel13");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,17 +159,19 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(18, 18, 18)
-                            .addComponent(coureur5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addGap(18, 18, 18)
                             .addComponent(coureur2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addGap(18, 18, 18)
-                            .addComponent(coureur4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(coureur4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel13)
+                                .addComponent(jLabel5))
+                            .addGap(18, 18, 18)
+                            .addComponent(coureur5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(21, 21, 21)
@@ -248,7 +253,9 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
                     .addComponent(coureur10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelErreur)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(boutonInscription)
                 .addGap(20, 20, 20))
         );
@@ -301,6 +308,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

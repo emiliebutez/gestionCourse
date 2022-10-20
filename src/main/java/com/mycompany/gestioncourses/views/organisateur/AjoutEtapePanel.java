@@ -113,8 +113,8 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
         paysArriveeEtape = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        nbSprint = new javax.swing.JTextField();
-        nbCol = new javax.swing.JTextField();
+        nbSprint = new javax.swing.JComboBox<>();
+        nbCol = new javax.swing.JComboBox<>();
         valider = new javax.swing.JButton();
 
         menu.setText("Menu");
@@ -154,6 +154,10 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
 
         jLabel3.setText("Nombre de col :");
 
+        nbSprint.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+
+        nbCol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
+
         javax.swing.GroupLayout panelnfoLayout = new javax.swing.GroupLayout(panelnfo);
         panelnfo.setLayout(panelnfoLayout);
         panelnfoLayout.setHorizontalGroup(
@@ -173,6 +177,10 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
                         .addContainerGap(177, Short.MAX_VALUE)
                         .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelnfoLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(villeDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelnfoLayout.createSequentialGroup()
                                 .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelnfoLayout.createSequentialGroup()
                                         .addComponent(jLabel11)
@@ -181,14 +189,10 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
                                         .addComponent(jLabel13)
                                         .addGap(27, 27, 27)))
                                 .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nbSprint, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nbSprint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(villeArriveeEtape)
-                                        .addComponent(distanceEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(panelnfoLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(villeDepartEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(distanceEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelnfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelnfoLayout.createSequentialGroup()
@@ -202,8 +206,8 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
                             .addGroup(panelnfoLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nbCol, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59))))
+                                .addComponent(nbCol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4))))
                     .addGroup(panelnfoLayout.createSequentialGroup()
                         .addGap(118, 118, 118)
                         .addComponent(jLabel2)
@@ -246,7 +250,7 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
                     .addComponent(jLabel3)
                     .addComponent(nbSprint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nbCol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         valider.setText("Valider");
@@ -323,8 +327,8 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
                     paysDepartEtape.getText(),
                     paysArriveeEtape.getText(),
                     Float.parseFloat(distanceEtape.getText()),
-                    Integer.parseInt(nbSprint.getText()),
-                    Integer.parseInt(nbCol.getText())
+                    Integer.parseInt(nbSprint.getSelectedItem().toString()),
+                    Integer.parseInt(nbCol.getSelectedItem().toString())
             );
             frame.displayMenuOrganisateur();
         }
@@ -349,8 +353,8 @@ public class AjoutEtapePanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JLabel jLabel9;
     private javax.swing.JButton menu;
     private javax.swing.JLabel msgError;
-    private javax.swing.JTextField nbCol;
-    private javax.swing.JTextField nbSprint;
+    private javax.swing.JComboBox<String> nbCol;
+    private javax.swing.JComboBox<String> nbSprint;
     private javax.swing.JLabel nomCourse;
     private javax.swing.JPanel panelnfo;
     private javax.swing.JTextField paysArriveeEtape;
