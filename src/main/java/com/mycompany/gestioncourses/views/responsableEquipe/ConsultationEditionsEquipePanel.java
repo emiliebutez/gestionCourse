@@ -298,7 +298,7 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(informationsEtape)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -307,7 +307,7 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
     }//GEN-LAST:event_choixEditionActionPerformed
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
-        this.frame.displayMenuOrganisateur();
+        this.frame.displayMenuJuryPanel();
     }//GEN-LAST:event_menuActionPerformed
 
     private void buttonInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInscriptionActionPerformed

@@ -1,9 +1,11 @@
 package com.mycompany.gestioncourses.services;
 
+import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Equipe;
 import com.mycompany.gestioncourses.models.Etat;
 import com.mycompany.gestioncourses.models.ParticipationEquipe;
+import com.mycompany.gestioncourses.models.query.QCoureur;
 import com.mycompany.gestioncourses.models.query.QEquipe;
 import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
 
@@ -57,5 +59,16 @@ public class EquipeService {
     
     public List<Equipe> equipes() {
         return new QEquipe().findList();
+    }
+    
+    public List<Coureur> coureursEquipe(Equipe equipe, Edition edition) {
+        return new QCoureur().participations
+                .participationEquipe
+                .edition.eq(edition)
+                .participations
+                .participationEquipe
+                .equipe
+                .eq(equipe)
+                .findList();
     }
 }

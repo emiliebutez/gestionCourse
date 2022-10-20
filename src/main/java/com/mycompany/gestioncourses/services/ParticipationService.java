@@ -1,12 +1,14 @@
 package com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.*;
+import com.mycompany.gestioncourses.models.query.QEdition;
 
 import com.mycompany.gestioncourses.models.query.QParticipation;
 import com.mycompany.gestioncourses.models.query.QEquipe;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ParticipationService {
     private static ParticipationService INSTANCE;
@@ -80,9 +82,27 @@ public class ParticipationService {
     
     public Participation trouverParticipation(Coureur coureur) {
         return new QParticipation().coureur.eq(coureur).findOne();
+    }
         
     public Equipe equipeAssocierEdition(Edition edition) {
-        Equipe equipe = new QEquipe().participations.edition.eq(edition).findOne();
+        return new QEquipe().participations.edition.eq(edition).findOne();
+    }
+    
+    public List<Edition> editionsParticipee(Coureur coureur) {
+        return new QParticipation()
+                .coureur.eq(coureur)
+                .findStream()
+                .map(p -> p.getParticipationEquipe().getEdition())
+                .collect(Collectors.toList());
+    }
+    
+    public List<Edition> editionsParticipeeNonEliminee(Coureur coureur) {
+        return new QParticipation()
+                .coureur.eq(coureur)
+                .etatParticipation.ne(Etat.Eliminee)
+                .findStream()
+                .map(p -> p.getParticipationEquipe().getEdition())
+                .collect(Collectors.toList());
     }
 
 }

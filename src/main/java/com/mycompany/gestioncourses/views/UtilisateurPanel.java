@@ -35,7 +35,7 @@ public class UtilisateurPanel extends javax.swing.JPanel {
         jury = new javax.swing.JButton();
         membreFFC = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Choix utilisateur");
 
         organisateur.setText("Organisateur");
@@ -86,23 +86,23 @@ public class UtilisateurPanel extends javax.swing.JPanel {
                         .addGap(27, 27, 27)
                         .addComponent(membreFFC))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(345, 345, 345)
+                        .addGap(275, 275, 275)
                         .addComponent(jLabel1)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(76, 76, 76)
                 .addComponent(jLabel1)
-                .addGap(56, 56, 56)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(organisateur)
                     .addComponent(coureur)
                     .addComponent(responsableEquipe)
                     .addComponent(jury)
                     .addComponent(membreFFC))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

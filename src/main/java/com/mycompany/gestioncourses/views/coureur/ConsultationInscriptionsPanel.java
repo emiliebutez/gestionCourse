@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -29,10 +30,10 @@ public class ConsultationInscriptionsPanel extends javax.swing.JPanel implements
     private MainFrame frame;
     private Coureur coureur;
     private CourseService courseService = CourseService.getInstance();
+    private EquipeService equipeService = EquipeService.getInstance();
     private EditionService editionService = EditionService.getInstance();
     private ParticipationService participationService = ParticipationService.getInstance();
-    private List<Course> courses = courseService.courses();
-    private Course courseSelectionnee;
+    private List<Edition> editions;
     private Edition editionSelectionnee;
     
     
@@ -44,17 +45,16 @@ public class ConsultationInscriptionsPanel extends javax.swing.JPanel implements
         this.coureur = coureur;
         
         initComponents();
-        
-        this.choixCourse.removeAllItems();
-        this.choixEdition.removeAllItems();
-        this.choixCourse.addActionListener(this);
         this.choixEdition.addActionListener(this);
-        this.courses.stream().forEach(c -> this.choixCourse.addItem(c));
-        this.courseSelectionnee = this.courses.isEmpty() ? null : this.courses.get(0);
-        this.choixCourse.setRenderer(new DropDownRenderer<Course>(c -> c.getNom()));
         this.choixEdition.setRenderer(new DropDownRenderer<Edition>(e -> {
-            return DATE_FORMAT.format(e.getDateDebut());
+            return String.format("%s %s", e.getCourse().getNom(), DATE_FORMAT.format(e.getDateDebut()));
         }));
+        
+        this.editions = this.participationService.editionsParticipeeNonEliminee(coureur);
+        this.choixEdition.removeAllItems();
+        this.editions.stream().forEach(c -> this.choixEdition.addItem(c));
+        this.editionSelectionnee = this.editions.isEmpty() ? null : this.editions.get(0);
+        
     }
     
     /**
@@ -69,14 +69,17 @@ public class ConsultationInscriptionsPanel extends javax.swing.JPanel implements
         menu = new javax.swing.JButton();
         nomResponsable = new javax.swing.JTextField();
         prenomNomResponsable = new javax.swing.JTextField();
-        nomEquipe = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        mailEquipe = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        choixCourse = new javax.swing.JComboBox<>();
         choixEdition = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        telEquipe = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        nomEquipe = new javax.swing.JTextField();
+        coureursEq = new javax.swing.JLabel();
 
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
@@ -85,170 +88,168 @@ public class ConsultationInscriptionsPanel extends javax.swing.JPanel implements
             }
         });
 
-        nomResponsable.setText("jTextField1");
         nomResponsable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomResponsableActionPerformed(evt);
             }
         });
 
-        prenomNomResponsable.setText("jTextField2");
-
-        nomEquipe.setText("jTextField3");
-        nomEquipe.addActionListener(new java.awt.event.ActionListener() {
+        mailEquipe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomEquipeActionPerformed(evt);
+                mailEquipeActionPerformed(evt);
             }
         });
 
-        jTextField4.setText("jTextField4");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Nom du responsable :");
+
+        jLabel2.setText("Prenom du responsable :");
+
+        jLabel3.setText("Mail responsable : ");
+
+        jLabel4.setText("Composition équipe :");
+
+        jLabel5.setText("Téléphone responsable :");
+
+        telEquipe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                telEquipeActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("jLabel1");
+        jLabel6.setText("Nom équipe :");
 
-        jLabel2.setText("jLabel2");
-
-        jLabel3.setText("jLabel3");
-
-        jLabel4.setText("jLabel4");
+        coureursEq.setText("Les coureurs");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+                    .addComponent(menu, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(171, 171, 171))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(nomEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(prenomNomResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                                .addComponent(prenomNomResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(34, 34, 34)
-                                .addComponent(nomResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(167, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(106, 106, 106)
-                                .addComponent(menu)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(coureursEq, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(67, 67, 67)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(mailEquipe)
+                                    .addComponent(nomResponsable)
+                                    .addComponent(telEquipe, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(nomEquipe))))
+                        .addGap(18, 18, 18)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(menu))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(menu)
+                .addGap(12, 12, 12)
                 .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nomEquipe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(prenomNomResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(nomResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(prenomNomResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mailEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(telEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coureursEq)
+                .addGap(43, 43, 43))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
-        //this.frame.displayMenuCoureurPanel();
+        this.frame.displayMenuCoureurPanel(coureur);
     }//GEN-LAST:event_menuActionPerformed
 
     private void nomResponsableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomResponsableActionPerformed
             
     }//GEN-LAST:event_nomResponsableActionPerformed
 
-    private void nomEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomEquipeActionPerformed
+    private void mailEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailEquipeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomEquipeActionPerformed
+    }//GEN-LAST:event_mailEquipeActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void telEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telEquipeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_telEquipeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Course> choixCourse;
     private javax.swing.JComboBox<Edition> choixEdition;
+    private javax.swing.JLabel coureursEq;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField mailEquipe;
     private javax.swing.JButton menu;
     private javax.swing.JTextField nomEquipe;
     private javax.swing.JTextField nomResponsable;
     private javax.swing.JTextField prenomNomResponsable;
+    private javax.swing.JTextField telEquipe;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.choixCourse) {
-            selectionCourse((Course) this.choixCourse.getSelectedItem());
-            return;
-        }
-        
         if (e.getSource() == this.choixEdition) {
             selectionEdition((Edition) this.choixEdition.getSelectedItem());
             return;
         }
         
     }
-    
-    private void selectionCourse(Course value) {
-        this.courseSelectionnee = value;
-        if (value != null) {
-            this.choixEdition.removeAllItems();
-            if (this.courseSelectionnee.getEditions() != null) {
-                this.courseSelectionnee.getEditions()
-                    .stream()
-                    .forEach(edition -> this.choixEdition.addItem(edition));
-            }
-            this.repaint();
-        }
-    }
         
         private void selectionEdition(Edition value) {
             this.editionSelectionnee = value;
             if (value != null) {
                 try {
-                    Equipe equipe = this.participationService.equipeAssocierEdition((Edition)this.choixEdition.getSelectedItem());
+                    Equipe equipe = this.participationService.equipeAssocierEdition((Edition)value);
+                    this.nomEquipe.setText(equipe.getNomEquipe());
                     this.nomResponsable.setText(equipe.getNomResponsable());
                     this.prenomNomResponsable.setText(equipe.getPrenomResponsable());
+                    this.mailEquipe.setText(equipe.getMailResponsable());
+                    this.telEquipe.setText(equipe.getTelResponsable());
+                    List<Coureur> coureurEquipe = this.equipeService.coureursEquipe(equipe, value);
+                    
+                    List<String> nomCoureurs = coureurEquipe.stream().map(c -> String.format("$s $s", c.getPrenom(), c.getNom())).collect(Collectors.toList());
+                    for (String c : nomCoureurs) {
+                        this.coureursEq.setText(c + " ");
+                    }
                 } catch (Exception e) {
                     this.nomResponsable.removeAll();
                     this.prenomNomResponsable.removeAll();

@@ -127,9 +127,6 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
     private void selectionEdition(Edition value) {
         this.editionSelectionnee = value;
         if (value != null) {
-            if (this.editionService.participationEdition(this.editionSelectionnee, this.coureur)) {
-                this.ajouterParticipation.setVisible(true);
-            }
             this.choixEtape.removeAllItems();
             if (this.editionSelectionnee.getEtapes() != null) {
                 this.editionSelectionnee.getEtapes()
@@ -154,7 +151,6 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
             this.repaint();
         } else {
             this.informationsEdition.setText("Informations indisponibles");
-            this.ajouterParticipation.setVisible(false);
         }
     }
 
@@ -180,7 +176,6 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
         informationsEdition = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         informationsEtape = new javax.swing.JLabel();
-        ajouterParticipation = new javax.swing.JButton();
 
         jLabel1.setText("Course");
 
@@ -203,8 +198,6 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
 
         informationsEtape.setText("Informations non disponibles");
 
-        ajouterParticipation.setText("S'inscrire à l'édition");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -218,28 +211,26 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
                             .addComponent(jLabel3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(262, 262, 262)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(ajouterParticipation)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(informationsEtape)
                             .addComponent(jLabel4))))
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(348, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(menu)
@@ -270,9 +261,7 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(informationsEtape)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(ajouterParticipation)
-                .addGap(179, 179, 179))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -297,7 +286,6 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ajouterParticipation;
     private javax.swing.JComboBox<Course> choixCourse;
     private javax.swing.JComboBox<Edition> choixEdition;
     private javax.swing.JComboBox<Etape> choixEtape;
