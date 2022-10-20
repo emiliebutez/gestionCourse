@@ -108,7 +108,7 @@ public class ConsultationEditionsJuryPanel extends javax.swing.JPanel implements
                                     "Distance: %fkm" +
                                     "</html>", 
                             value.getVilleDepart(),value.getPaysDepart(),
-                            value.getPaysDepart(), value.getPaysArrivee(),
+                            value.getVilleArrivee(), value.getPaysArrivee(),
                             value.getDistance()
                     )
             );
