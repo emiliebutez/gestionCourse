@@ -7,6 +7,7 @@ package com.mycompany.gestioncourses.views.jury;
 import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Etape;
 import com.mycompany.gestioncourses.models.Participation;
+import com.mycompany.gestioncourses.models.Performance;
 import com.mycompany.gestioncourses.services.EtapeService;
 import com.mycompany.gestioncourses.services.ParticipationService;
 import com.mycompany.gestioncourses.services.PerformanceService;
@@ -28,8 +29,7 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
     private EtapeService etapeService = EtapeService.getInstance();
     private PerformanceService perfService = PerformanceService.getInstance();
     private ParticipationService particitapationService = ParticipationService.getInstance();
-    private List<Participation> participations = this.particitapationService
-            .participations(this.etape.getEdition());
+    private List<Participation> participations;
     private Coureur coureurSelectionnee;
 
     /**
@@ -39,6 +39,9 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
         this.frame = frame;
         this.etape = etape;
         initComponents();
+        
+        this.participations = this.particitapationService
+            .participations(this.etape.getEdition());
         
         this.choixCoureur.removeAllItems();
         this.choixCoureur.addActionListener(this);
@@ -60,6 +63,7 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
     }
     
     private void selectionCoureur(Coureur value) {
+        this.perfNonTerminee.setVisible(true);
         this.coureurSelectionnee = value;
         if (value != null) {
             if (this.perfService.performanceTerminee(etape, coureurSelectionnee)) {
@@ -96,6 +100,7 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
         panelTemps = new javax.swing.JPanel();
         temps = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        test = new javax.swing.JLabel();
 
         menu.setBackground(new java.awt.Color(0, 102, 153));
         menu.setText("Menu");
@@ -243,6 +248,8 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
                 .addGap(32, 32, 32))
         );
 
+        test.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -253,7 +260,11 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(perfNonTerminee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addComponent(cloturer))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cloturer, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(test)
+                                .addGap(23, 23, 23))))
                     .addComponent(menu))
                 .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
@@ -268,15 +279,19 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(menu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(choixCoureur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(28, 28, 28)
                         .addComponent(perfNonTerminee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cloturer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(test)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cloturer)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -334,11 +349,48 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
     }//GEN-LAST:event_cloturerActionPerformed
 
     private void validationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validationActionPerformed
+        if(this.perfService.trouverPerformance(this.etape, this.coureurSelectionnee) == null) {
+            Participation participation = this.particitapationService.trouverParticipation(coureurSelectionnee);
+            this.perfService.creerPerformance(participation, etape, 0, 0, 0);
+        }
+        
+        Performance performance = this.perfService.trouverPerformance(etape, coureurSelectionnee);
+        
+        if (this.selectSprint.isSelected() & this.pointSprint != null) {
+            
+            int pointSprintFormat = (this.pointSprint.getText().length() == 0) ?
+                   0 : Integer.parseInt(this.pointSprint.getText());
+            this.perfService.ajouterPointsSprint(performance, pointSprintFormat);
+           
+            float tempsFormat = (this.temps.getText().length() == 0) ?
+                   0 : Float.parseFloat(this.temps.getText());
+            this.perfService.ajouterTemps(performance, tempsFormat);
+            
+            this.resetText();
+            this.test.setText("Réussi");
+        }
+        
+        if (this.selectCol.isSelected() & this.pointGrimp != null) {
+            
+            int pointGrimpFormat = (this.pointGrimp.getText().length() == 0) ?
+                   0 : Integer.parseInt(this.pointGrimp.getText());
+            this.perfService.ajouterPointsGrimp(performance, pointGrimpFormat);
+            
+            this.resetText();
+            this.test.setText("Réussi");
+        }
+        
         if (this.perfService.performanceTerminee(etape, this.coureurSelectionnee)) {
             this.perfNonTerminee.setVisible(false);
+            return;
         }
     }//GEN-LAST:event_validationActionPerformed
 
+    private void resetText() {
+        this.temps.setText("");
+        this.pointSprint.setText("");
+        this.pointGrimp.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Coureur> choixCoureur;
@@ -358,6 +410,7 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
     private javax.swing.JRadioButton selectCol;
     private javax.swing.JRadioButton selectSprint;
     private javax.swing.JTextField temps;
+    private javax.swing.JLabel test;
     private javax.swing.JButton validation;
     // End of variables declaration//GEN-END:variables
 }

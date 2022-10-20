@@ -75,5 +75,9 @@ public class ParticipationService {
                 .eq(edition)
                 .findList();
     }
+    
+    public Participation trouverParticipation(Coureur coureur) {
+        return new QParticipation().coureur.eq(coureur).findOne();
+    }
 
 }

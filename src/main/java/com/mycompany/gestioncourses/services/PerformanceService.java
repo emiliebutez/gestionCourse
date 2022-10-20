@@ -59,7 +59,6 @@ public class PerformanceService {
                 .findOne();
     }
     
-    
     public boolean performanceTerminee(Etape etape, Coureur coureur) {
         Performance perf = trouverPerformance(etape, coureur);
         if (perf != null) {
