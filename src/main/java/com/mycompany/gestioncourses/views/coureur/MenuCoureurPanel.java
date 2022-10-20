@@ -96,7 +96,7 @@ public class MenuCoureurPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_editionsActionPerformed
 
     private void inscriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inscriptionsActionPerformed
-        this.frame.displayConsultationInscriptionsPanel();
+        this.frame.displayConsultationInscriptionsPanel(this.coureur);
     }//GEN-LAST:event_inscriptionsActionPerformed
 
 

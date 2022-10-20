@@ -1,8 +1,10 @@
 package com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.*;
+import com.mycompany.gestioncourses.models.query.QEquipe;
 
 import java.util.Collections;
+import java.util.List;
 
 public class ParticipationService {
     private static ParticipationService INSTANCE;
@@ -64,6 +66,10 @@ public class ParticipationService {
         participation.getParticipationEquipe().refresh();
 
         return participation;
+    }
+    
+    public Equipe equipeAssocierEdition(Edition edition) {
+        Equipe equipe = new QEquipe().participations.edition.eq(edition).findOne();
     }
 
 }
