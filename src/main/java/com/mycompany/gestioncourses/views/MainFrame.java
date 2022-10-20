@@ -31,6 +31,9 @@ import com.mycompany.gestioncourses.views.responsableEquipe.MenuResponsablePanel
 import java.awt.Container;
 import java.sql.Date;
 import java.util.Collections;
+import membreFFC.ConsultationClassementMembrePanel;
+import membreFFC.ConsultationEditionMembrePanel;
+import membreFFC.MenuMembrePanel;
 
 /**
  *
@@ -197,6 +200,20 @@ public class MainFrame extends javax.swing.JFrame {
     public void displayConsultationInscriptionsEquipePanel(Equipe equipe) {
         this.setMainFrame(new ConsultationInscriptionsEquipePanel(this, equipe));
     }
+    
+    public void displayConsultationEditionMembrePanel(){
+        this.setMainFrame(new ConsultationEditionMembrePanel(this));
+    }
+    
+    public void displayMenuMembrePanel(){
+        this.setMainFrame(new MenuMembrePanel(this));
+    }
+    
+    public void displayConsultationClassementMembrePanel(){
+        this.setMainFrame(new ConsultationClassementMembrePanel(this));
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
