@@ -6,6 +6,7 @@ import com.mycompany.gestioncourses.models.EtatEtape;
 
 public class EtapeService {
     private static EtapeService INSTANCE;
+    private EquipeService equipeService = EquipeService.getInstance();
 
     public synchronized static EtapeService getInstance() {
         if (INSTANCE == null) {
@@ -30,6 +31,9 @@ public class EtapeService {
                 .stream()
                 .filter(p -> p.getTemps() == 0)
                 .forEach(p -> p.getParticipation().setEtatParticipation(Etat.Eliminee));
+        
+        this.equipeService.eliminerEquipes(etape.getEdition());
+        
         etape.setEtatEtape(EtatEtape.Cloturee);
         etape.save();
         return etape;

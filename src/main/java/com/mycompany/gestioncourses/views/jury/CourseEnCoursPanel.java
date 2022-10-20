@@ -4,20 +4,33 @@
  */
 package com.mycompany.gestioncourses.views.jury;
 
+import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Etape;
+import com.mycompany.gestioncourses.models.Participation;
 import com.mycompany.gestioncourses.services.EtapeService;
+import com.mycompany.gestioncourses.services.ParticipationService;
+import com.mycompany.gestioncourses.services.PerformanceService;
 import com.mycompany.gestioncourses.views.MainFrame;
+import com.mycompany.gestioncourses.views.utils.DropDownRenderer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author Emilie
  */
-public class CourseEnCoursPanel extends javax.swing.JPanel {
+public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionListener {
     
     private MainFrame frame;
     private Etape etape;
     private EtapeService etapeService = EtapeService.getInstance();
+    private PerformanceService perfService = PerformanceService.getInstance();
+    private ParticipationService particitapationService = ParticipationService.getInstance();
+    private List<Participation> participations = this.particitapationService
+            .participations(this.etape.getEdition());
+    private Coureur coureurSelectionnee;
 
     /**
      * Creates new form CourseEnCoursPanel
@@ -27,9 +40,33 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
         this.etape = etape;
         initComponents();
         
+        this.choixCoureur.removeAllItems();
+        this.choixCoureur.addActionListener(this);
+        this.participations.stream().forEach(c -> this.choixCoureur.addItem(c.getCoureur()));
+        //this.coureurSelectionnee = this.participations.isEmpty() ? null : this.participations.get(0);
+        this.choixCoureur.setRenderer(new DropDownRenderer<Coureur>(c -> String.format("%s %s", c.getPrenom(), c.getNom())));
+        
         this.pointGrimp.setVisible(false);
         this.pointSprint.setVisible(false);
         this.panelTemps.setVisible(false);
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == this.choixCoureur) {
+            selectionCoureur((Coureur) this.choixCoureur.getSelectedItem());
+            return;
+        }
+    }
+    
+    private void selectionCoureur(Coureur value) {
+        this.coureurSelectionnee = value;
+        if (value != null) {
+            if (this.perfService.performanceTerminee(etape, coureurSelectionnee)) {
+                this.perfNonTerminee.setVisible(false);
+            }
+            this.repaint();
+        }
     }
 
     /**
@@ -44,17 +81,18 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
         choixType = new javax.swing.ButtonGroup();
         menu = new javax.swing.JButton();
         cloturer = new javax.swing.JButton();
-        coureur = new javax.swing.JComboBox<>();
+        choixCoureur = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        perfNonTerminee = new javax.swing.JPanel();
         validation = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        numSprintOuGrimp = new javax.swing.JComboBox<>();
-        selectSprint = new javax.swing.JRadioButton();
-        selectCol = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
         pointGrimp = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         pointSprint = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        numSprintOuGrimp = new javax.swing.JComboBox<>();
+        selectCol = new javax.swing.JRadioButton();
+        selectSprint = new javax.swing.JRadioButton();
         panelTemps = new javax.swing.JPanel();
         temps = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -78,24 +116,23 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Coureur :");
 
-        jLabel4.setText("Point sprint :");
-
         validation.setBackground(new java.awt.Color(0, 102, 51));
         validation.setText("Ajouter");
+        validation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                validationActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Point grimper :");
+
+        jLabel4.setText("Point sprint :");
+
+        jLabel6.setText("Numéro :");
 
         numSprintOuGrimp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numSprintOuGrimpActionPerformed(evt);
-            }
-        });
-
-        choixType.add(selectSprint);
-        selectSprint.setText("Sprint");
-        selectSprint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectSprintActionPerformed(evt);
             }
         });
 
@@ -107,7 +144,13 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel6.setText("Numéro :");
+        choixType.add(selectSprint);
+        selectSprint.setText("Sprint");
+        selectSprint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectSprintActionPerformed(evt);
+            }
+        });
 
         temps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,19 +165,82 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
         panelTempsLayout.setHorizontalGroup(
             panelTempsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTempsLayout.createSequentialGroup()
-                .addGap(0, 69, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(26, 26, 26)
-                .addComponent(temps, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(temps, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         panelTempsLayout.setVerticalGroup(
             panelTempsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTempsLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(panelTempsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(temps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(0, 41, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout perfNonTermineeLayout = new javax.swing.GroupLayout(perfNonTerminee);
+        perfNonTerminee.setLayout(perfNonTermineeLayout);
+        perfNonTermineeLayout.setHorizontalGroup(
+            perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(perfNonTermineeLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(perfNonTermineeLayout.createSequentialGroup()
+                        .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(perfNonTermineeLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pointSprint)
+                                    .addComponent(pointGrimp)))
+                            .addGroup(perfNonTermineeLayout.createSequentialGroup()
+                                .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(perfNonTermineeLayout.createSequentialGroup()
+                                        .addGap(57, 57, 57)
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(numSprintOuGrimp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(perfNonTermineeLayout.createSequentialGroup()
+                                        .addGap(80, 80, 80)
+                                        .addComponent(selectSprint)
+                                        .addGap(67, 67, 67)
+                                        .addComponent(selectCol)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(37, 37, 37))
+                    .addGroup(perfNonTermineeLayout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(validation))
+                    .addComponent(panelTemps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
+        );
+        perfNonTermineeLayout.setVerticalGroup(
+            perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(perfNonTermineeLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectSprint)
+                    .addComponent(selectCol))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(numSprintOuGrimp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(pointSprint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(perfNonTermineeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(pointGrimp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelTemps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(validation)
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -142,50 +248,19 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(menu)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cloturer)
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(83, 83, 83)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(coureur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(numSprintOuGrimp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(selectSprint)
-                        .addGap(67, 67, 67)
-                        .addComponent(selectCol)
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pointSprint)
-                            .addComponent(pointGrimp))))
-                .addGap(406, 406, 406))
+                        .addComponent(perfNonTerminee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addComponent(cloturer))
+                    .addComponent(menu))
+                .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
-                .addGap(259, 259, 259)
-                .addComponent(validation)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(panelTemps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(159, 159, 159)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(choixCoureur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -194,36 +269,15 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(menu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(coureur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selectSprint)
-                    .addComponent(selectCol))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(numSprintOuGrimp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(pointSprint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(264, 264, 264)
-                        .addComponent(cloturer)
-                        .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(pointGrimp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelTemps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(validation)
-                        .addGap(122, 122, 122))))
+                            .addComponent(choixCoureur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(28, 28, 28)
+                        .addComponent(perfNonTerminee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cloturer))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -279,11 +333,17 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
         this.etapeService.cloturerEtape(etape);
     }//GEN-LAST:event_cloturerActionPerformed
 
+    private void validationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validationActionPerformed
+        if (this.perfService.performanceTerminee(etape, this.coureurSelectionnee)) {
+            this.perfNonTerminee.setVisible(false);
+        }
+    }//GEN-LAST:event_validationActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Coureur> choixCoureur;
     private javax.swing.ButtonGroup choixType;
     private javax.swing.JButton cloturer;
-    private javax.swing.JComboBox<String> coureur;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -292,6 +352,7 @@ public class CourseEnCoursPanel extends javax.swing.JPanel {
     private javax.swing.JButton menu;
     private javax.swing.JComboBox<Integer> numSprintOuGrimp;
     private javax.swing.JPanel panelTemps;
+    private javax.swing.JPanel perfNonTerminee;
     private javax.swing.JTextField pointGrimp;
     private javax.swing.JTextField pointSprint;
     private javax.swing.JRadioButton selectCol;

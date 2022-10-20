@@ -1,7 +1,11 @@
 package com.mycompany.gestioncourses.services;
 
+import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Equipe;
+import com.mycompany.gestioncourses.models.Etat;
+import com.mycompany.gestioncourses.models.ParticipationEquipe;
 import com.mycompany.gestioncourses.models.query.QEquipe;
+import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +30,29 @@ public class EquipeService {
         equipe.save();
 
         return equipe;
+    }
+    
+    public void eliminerEquipes(Edition edition){
+        new QParticipationEquipe()
+                .edition.eq(edition)
+                .findStream()
+                .filter(pe -> {
+                    return pe.getParticipation().stream()
+                            .filter(p -> p.getEtatParticipation() == Etat.Validee)
+                            .count() > 3;
+                })
+                .forEach(pe -> {
+                    eliminerEquipe(pe);
+                });
+        //this.equipesEdition(edition).forEach(e -> e.getParticipations().forEach(p -> p.getEtatParticipation().Validee).);
+    }
+    
+    public void eliminerEquipe(ParticipationEquipe equipe) {
+        equipe.setEtatParticipation(Etat.Eliminee);
+    }
+    
+    public List<Equipe> equipesEdition(Edition edition) {
+        return new QEquipe().participations.edition.eq(edition).findList();
     }
     
     public List<Equipe> equipes() {

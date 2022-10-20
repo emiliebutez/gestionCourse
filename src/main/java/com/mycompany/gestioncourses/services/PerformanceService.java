@@ -1,8 +1,11 @@
 package com.mycompany.gestioncourses.services;
 
+import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Etape;
 import com.mycompany.gestioncourses.models.Participation;
 import com.mycompany.gestioncourses.models.Performance;
+import com.mycompany.gestioncourses.models.query.QPerformance;
+import java.util.List;
 
 public class PerformanceService {
     private static PerformanceService INSTANCE;
@@ -47,5 +50,26 @@ public class PerformanceService {
         performance.save();
 
         return performance;
+    }
+    
+    public Performance trouverPerformance(Etape etape, Coureur coureur) {
+        return new QPerformance()
+                .etape.eq(etape)
+                .participation.coureur.eq(coureur)
+                .findOne();
+    }
+    
+    
+    public boolean performanceTerminee(Etape etape, Coureur coureur) {
+        Performance perf = trouverPerformance(etape, coureur);
+        if (perf != null) {
+            if (perf.getTemps() != 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return false;
     }
 }

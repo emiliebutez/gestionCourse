@@ -1,8 +1,10 @@
 package com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.*;
+import com.mycompany.gestioncourses.models.query.QParticipation;
 
 import java.util.Collections;
+import java.util.List;
 
 public class ParticipationService {
     private static ParticipationService INSTANCE;
@@ -64,6 +66,14 @@ public class ParticipationService {
         participation.getParticipationEquipe().refresh();
 
         return participation;
+    }
+    
+    public List<Participation> participations(Edition edition) {
+        return new QParticipation()
+                .participationEquipe
+                .edition
+                .eq(edition)
+                .findList();
     }
 
 }
