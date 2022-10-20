@@ -43,8 +43,9 @@ public class CreationCoursePanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        jLabel1.setText("Creation course");
+        jLabel1.setText("Creation course :");
 
+        menu.setBackground(new java.awt.Color(153, 204, 255));
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,6 +53,7 @@ public class CreationCoursePanel extends javax.swing.JPanel {
             }
         });
 
+        ajouterCourse.setBackground(new java.awt.Color(102, 255, 102));
         ajouterCourse.setText("Ajouter");
         ajouterCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +61,8 @@ public class CreationCoursePanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Maiandra GD", 0, 24)); // NOI18N
         jLabel3.setText("Ajouter une course");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -103,7 +106,7 @@ public class CreationCoursePanel extends javax.swing.JPanel {
                     .addComponent(ajouterCourse))
                 .addGap(41, 41, 41)
                 .addComponent(jLabel2)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

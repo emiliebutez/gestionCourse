@@ -38,6 +38,7 @@ public class MenuCoureurPanel extends javax.swing.JPanel {
         editions = new javax.swing.JButton();
         inscriptions = new javax.swing.JButton();
 
+        utilisateur.setBackground(new java.awt.Color(153, 204, 255));
         utilisateur.setText("Choix utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,16 +64,17 @@ public class MenuCoureurPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(utilisateur)
-                .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(editions)
-                .addGap(56, 56, 56)
-                .addComponent(inscriptions)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(utilisateur)
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(editions)
+                        .addGap(76, 76, 76)
+                        .addComponent(inscriptions)
+                        .addGap(75, 75, 75))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,9 +83,9 @@ public class MenuCoureurPanel extends javax.swing.JPanel {
                 .addComponent(utilisateur)
                 .addGap(111, 111, 111)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editions)
-                    .addComponent(inscriptions))
-                .addContainerGap(125, Short.MAX_VALUE))
+                    .addComponent(editions, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inscriptions, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

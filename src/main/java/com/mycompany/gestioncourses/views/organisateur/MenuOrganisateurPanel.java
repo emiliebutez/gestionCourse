@@ -38,7 +38,7 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
         utilisateur = new javax.swing.JButton();
         ajouterEtape = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Maiandra GD", 0, 24)); // NOI18N
         jLabel1.setText("Accueil Organisateur");
 
         creationCourse.setText("Création d'une course");
@@ -69,6 +69,7 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
             }
         });
 
+        utilisateur.setBackground(new java.awt.Color(153, 204, 255));
         utilisateur.setText("Choix Utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,24 +89,25 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(utilisateur))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addGap(24, 24, 24)
                         .addComponent(creationCourse)
-                        .addGap(41, 41, 41)
+                        .addGap(36, 36, 36)
                         .addComponent(creationEdition)
-                        .addGap(42, 42, 42)
+                        .addGap(38, 38, 38)
                         .addComponent(ajouterEtape)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addComponent(ConsulterEdition)
-                        .addGap(37, 37, 37)
-                        .addComponent(consulterClassement)))
+                        .addGap(28, 28, 28)
+                        .addComponent(consulterClassement)
+                        .addGap(7, 7, 7)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(401, 401, 401)
+                .addGap(288, 288, 288)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -114,15 +116,15 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(utilisateur)
-                .addGap(37, 37, 37)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(51, 51, 51)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(creationCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(creationEdition)
-                    .addComponent(ConsulterEdition)
-                    .addComponent(consulterClassement)
-                    .addComponent(ajouterEtape))
+                    .addComponent(creationCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(creationEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ConsulterEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(consulterClassement, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ajouterEtape, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(123, 123, 123))
         );
     }// </editor-fold>//GEN-END:initComponents

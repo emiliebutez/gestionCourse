@@ -33,6 +33,7 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
 
         menu = new javax.swing.JButton();
 
+        menu.setBackground(new java.awt.Color(153, 204, 255));
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

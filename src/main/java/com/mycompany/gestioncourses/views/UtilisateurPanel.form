@@ -16,43 +16,43 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <Component id="organisateur" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="coureur" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="organisateur" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="coureur" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                      <Component id="responsableEquipe" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="jury" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="membreFFC" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="345" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="responsableEquipe" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="jury" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="38" max="32767" attributes="0"/>
+                      <Component id="membreFFC" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="organisateur" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="coureur" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="responsableEquipe" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jury" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="membreFFC" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="organisateur" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="coureur" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="responsableEquipe" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="jury" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="membreFFC" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="123" max="32767" attributes="0"/>
+              <EmptySpace pref="135" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,13 +61,19 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="18" style="0"/>
+          <Font name="Maiandra GD" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Choix utilisateur"/>
+        <Property name="text" type="java.lang.String" value="Tableau de bord "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="organisateur">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft JhengHei UI Light" size="14" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Organisateur"/>
       </Properties>
       <Events>
@@ -76,6 +82,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="coureur">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft JhengHei UI Light" size="14" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Coureur"/>
       </Properties>
       <Events>
@@ -84,6 +96,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="responsableEquipe">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft JhengHei UI Light" size="14" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Responsable d&apos;&#xe9;quipe"/>
       </Properties>
       <Events>
@@ -92,6 +110,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="jury">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft JhengHei UI Light" size="14" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Jury"/>
       </Properties>
       <Events>
@@ -100,6 +124,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="membreFFC">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft JhengHei UI Light" size="14" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Membre FFC"/>
       </Properties>
     </Component>

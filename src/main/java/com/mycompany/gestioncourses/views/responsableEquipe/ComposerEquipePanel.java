@@ -105,6 +105,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
         coureur9 = new javax.swing.JComboBox<>();
         coureur10 = new javax.swing.JComboBox<>();
         labelErreur = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jLabel6.setText("jLabel6");
 
@@ -118,6 +119,8 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
             }
         });
 
+        boutonInscription.setBackground(new java.awt.Color(0, 51, 255));
+        boutonInscription.setForeground(new java.awt.Color(255, 255, 255));
         boutonInscription.setText("Inscrire");
         boutonInscription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +138,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
 
         jLabel5.setText("Coureur 5 :");
 
+        jLabel7.setFont(new java.awt.Font("Maiandra GD", 0, 18)); // NOI18N
         jLabel7.setText("Inscription des coureurs de l'équipe");
 
         jLabel8.setText("Coureur 6 :");
@@ -146,6 +150,14 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
         jLabel11.setText("Coureur 9 :");
 
         jLabel12.setText("Coureur 10 :");
+
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setText("Menu");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -202,21 +214,28 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(231, 231, 231))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(boutonInscription)
                         .addGap(289, 289, 289))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelErreur)
-                        .addGap(303, 303, 303))))
+                        .addGap(303, 303, 303))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(94, 94, 94)
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(coureur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,7 +267,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
                     .addComponent(coureur10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelErreur)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(boutonInscription)
                 .addGap(20, 20, 20))
         );
@@ -283,6 +302,10 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
         this.frame.displayConsultationInscriptionsEquipePanel(this.equipe);
     }//GEN-LAST:event_boutonInscriptionActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.frame.displayMenuResponsablePanel(equipe);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -297,6 +320,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
     private javax.swing.JComboBox<Coureur> coureur7;
     private javax.swing.JComboBox<Coureur> coureur8;
     private javax.swing.JComboBox<Coureur> coureur9;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -35,6 +35,7 @@ public class MenuJuryPanel extends javax.swing.JPanel {
         editions = new javax.swing.JButton();
         classement = new javax.swing.JButton();
 
+        utilisateur.setBackground(new java.awt.Color(153, 204, 255));
         utilisateur.setText("Choix utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -43,6 +44,11 @@ public class MenuJuryPanel extends javax.swing.JPanel {
         });
 
         editions.setText("Consulter éditions");
+        editions.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                editionsComponentResized(evt);
+            }
+        });
         editions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editionsActionPerformed(evt);
@@ -59,28 +65,30 @@ public class MenuJuryPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(utilisateur)
-                .addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(editions)
-                .addGap(18, 18, 18)
-                .addComponent(classement)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(utilisateur))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(editions, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(classement)
+                        .addGap(0, 64, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(utilisateur)
-                .addGap(104, 104, 104)
+                .addGap(122, 122, 122)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editions)
-                    .addComponent(classement))
-                .addContainerGap(132, Short.MAX_VALUE))
+                    .addComponent(editions, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(classement, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -95,6 +103,10 @@ public class MenuJuryPanel extends javax.swing.JPanel {
     private void classementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classementActionPerformed
         this.frame.displayConsultationClassementJuryPanel();
     }//GEN-LAST:event_classementActionPerformed
+
+    private void editionsComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_editionsComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editionsComponentResized
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

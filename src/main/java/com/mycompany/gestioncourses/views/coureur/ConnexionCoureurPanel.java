@@ -73,6 +73,7 @@ public class ConnexionCoureurPanel extends javax.swing.JPanel implements ActionL
 
         jLabel1.setText("Choix coureur :");
 
+        validation.setBackground(new java.awt.Color(102, 255, 102));
         validation.setText("Connexion");
         validation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

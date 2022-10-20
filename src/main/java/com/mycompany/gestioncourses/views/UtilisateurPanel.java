@@ -35,9 +35,11 @@ public class UtilisateurPanel extends javax.swing.JPanel {
         jury = new javax.swing.JButton();
         membreFFC = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Choix utilisateur");
+        jLabel1.setFont(new java.awt.Font("Maiandra GD", 0, 24)); // NOI18N
+        jLabel1.setText("Tableau de bord ");
 
+        organisateur.setBackground(new java.awt.Color(204, 204, 204));
+        organisateur.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 14)); // NOI18N
         organisateur.setText("Organisateur");
         organisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,6 +47,8 @@ public class UtilisateurPanel extends javax.swing.JPanel {
             }
         });
 
+        coureur.setBackground(new java.awt.Color(204, 204, 204));
+        coureur.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 14)); // NOI18N
         coureur.setText("Coureur");
         coureur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,6 +56,8 @@ public class UtilisateurPanel extends javax.swing.JPanel {
             }
         });
 
+        responsableEquipe.setBackground(new java.awt.Color(204, 204, 204));
+        responsableEquipe.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 14)); // NOI18N
         responsableEquipe.setText("Responsable d'équipe");
         responsableEquipe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,6 +65,8 @@ public class UtilisateurPanel extends javax.swing.JPanel {
             }
         });
 
+        jury.setBackground(new java.awt.Color(204, 204, 204));
+        jury.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 14)); // NOI18N
         jury.setText("Jury");
         jury.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,43 +74,45 @@ public class UtilisateurPanel extends javax.swing.JPanel {
             }
         });
 
+        membreFFC.setBackground(new java.awt.Color(204, 204, 204));
+        membreFFC.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 1, 14)); // NOI18N
         membreFFC.setText("Membre FFC");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(organisateur)
+                .addGap(46, 46, 46)
+                .addComponent(coureur)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(organisateur)
-                        .addGap(40, 40, 40)
-                        .addComponent(coureur)
-                        .addGap(38, 38, 38)
-                        .addComponent(responsableEquipe)
-                        .addGap(44, 44, 44)
-                        .addComponent(jury)
-                        .addGap(27, 27, 27)
-                        .addComponent(membreFFC))
+                        .addComponent(jLabel1)
+                        .addGap(186, 186, 186))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(345, 345, 345)
-                        .addComponent(jLabel1)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(responsableEquipe)
+                        .addGap(42, 42, 42)
+                        .addComponent(jury)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(membreFFC)
+                        .addGap(35, 35, 35))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel1)
-                .addGap(56, 56, 56)
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(organisateur)
-                    .addComponent(coureur)
-                    .addComponent(responsableEquipe)
-                    .addComponent(jury)
-                    .addComponent(membreFFC))
-                .addContainerGap(123, Short.MAX_VALUE))
+                    .addComponent(organisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(coureur, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(responsableEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jury, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(membreFFC, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -4,17 +4,40 @@
  */
 package com.mycompany.gestioncourses.views.responsableEquipe;
 
+import com.mycompany.gestioncourses.models.Course;
+import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Equipe;
+import com.mycompany.gestioncourses.models.Etape;
+import com.mycompany.gestioncourses.services.CourseService;
+import com.mycompany.gestioncourses.services.EditionService;
+import com.mycompany.gestioncourses.services.EquipeService;
+import com.mycompany.gestioncourses.services.ParticipationEquipeService;
 import com.mycompany.gestioncourses.views.MainFrame;
+import com.mycompany.gestioncourses.views.utils.DropDownRenderer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  *
  * @author David_C
  */
-public class ConsultationInscriptionsEquipePanel extends javax.swing.JPanel {
+public class ConsultationInscriptionsEquipePanel extends javax.swing.JPanel implements ActionListener {
     
     private MainFrame frame;
     private Equipe equipe;
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");  
+    private CourseService courseService = CourseService.getInstance();
+    private EquipeService equipeService = EquipeService.getInstance();
+    private EditionService editionService = EditionService.getInstance();
+    private ParticipationEquipeService participationEquipeService = ParticipationEquipeService.getInstance();
+    private List<Course> courses;
+    private List<Edition> edition;
+    private Course courseSelectionnee;
+    private Etape etapeSelectionnee;
+    private Edition editionSelectionnee;
+   
 
     /**
      * Creates new form ConsultationInscriptionsEquipePanel
@@ -23,8 +46,39 @@ public class ConsultationInscriptionsEquipePanel extends javax.swing.JPanel {
         this.frame = frame;
         this.equipe = equipe;
         initComponents();
+        this.courses = this.equipeService.TrouverParticipationCourseEquipe(this.equipe);
+        this.edition = this.equipeService.TrouverParticipationEditionEquipe(this.equipe);
+        this.choixCourse.addActionListener(this);
+        this.choixEdition.addActionListener(this);
+        this.courses.stream().forEach(c -> this.choixCourse.addItem(c));
+        this.courseSelectionnee = this.courses.isEmpty() ? null : this.courses.get(0);
+        this.choixCourse.setRenderer(new DropDownRenderer<Course>(c -> c.getNom()));
+        this.choixEdition.setRenderer(new DropDownRenderer<Edition>(e -> DATE_FORMAT.format(e.getDateDebut())));
+        this.invalidate();
+        this.repaint();
     }
-
+    
+      public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == this.choixCourse) {
+            selectionCourse((Course) this.choixCourse.getSelectedItem());
+            return;
+        }
+    }
+     
+       
+     private void selectionCourse(Course value) {
+        this.courseSelectionnee = value;
+        if (value != null) {
+            this.choixEdition.removeAllItems();
+            this.courseSelectionnee.getEditions()
+                    .stream()
+                    .forEach(edition -> this.choixEdition.addItem(edition));
+            this.repaint();
+        }
+    }
+    
+     
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,19 +88,129 @@ public class ConsultationInscriptionsEquipePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        choixCourse = new javax.swing.JComboBox<>();
+        choixEdition = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        informationsEquipe = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        informationsCoureur = new javax.swing.JLabel();
+        menu = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        jLabel2.setText("Edition :");
+
+        choixEdition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choixEditionActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Informations équipe");
+
+        informationsEquipe.setText("Informations non disponibles");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setText("Informations coureur");
+
+        informationsCoureur.setText("Informations non disponibles");
+
+        menu.setBackground(new java.awt.Color(153, 204, 255));
+        menu.setText("Menu");
+        menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Course :");
+
+        jLabel3.setFont(new java.awt.Font("Maiandra GD", 0, 24)); // NOI18N
+        jLabel3.setText("Consultation des inscriptions");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(56, 56, 56)
+                        .addComponent(menu))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(informationsCoureur)
+                                    .addComponent(jLabel5)
+                                    .addComponent(informationsEquipe)
+                                    .addComponent(jLabel4)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(195, 195, 195)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 209, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(menu)))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(112, 112, 112)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(informationsEquipe)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(informationsCoureur)
+                .addContainerGap(321, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void choixEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixEditionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_choixEditionActionPerformed
+
+    private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
+        this.frame.displayMenuResponsablePanel(equipe);
+    }//GEN-LAST:event_menuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Course> choixCourse;
+    private javax.swing.JComboBox<Edition> choixEdition;
+    private javax.swing.JLabel informationsCoureur;
+    private javax.swing.JLabel informationsEquipe;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton menu;
     // End of variables declaration//GEN-END:variables
 }
