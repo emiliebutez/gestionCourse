@@ -43,6 +43,13 @@ public class ParticipationService {
         return participation;
     }
 
+    public ParticipationEquipe ajouterVehicules(ParticipationEquipe participationEquipe, List<VehiculeAssistance> vehiculeAssistance) {
+        participationEquipe.setVehicules(vehiculeAssistance);
+        participationEquipe.save();
+
+        return participationEquipe;
+    }
+
     public Participation changerEquipeParticipation(Participation participation, ParticipationEquipe participationEquipe) {
         ParticipationEquipe ancienne = participation.getParticipationEquipe();
 
@@ -71,7 +78,7 @@ public class ParticipationService {
 
         return participation;
     }
-    
+
     public List<Participation> participations(Edition edition) {
         return new QParticipation()
                 .participationEquipe
@@ -79,15 +86,15 @@ public class ParticipationService {
                 .eq(edition)
                 .findList();
     }
-    
+
     public Participation trouverParticipation(Coureur coureur) {
         return new QParticipation().coureur.eq(coureur).findOne();
     }
-        
+
     public Equipe equipeAssocierEdition(Edition edition) {
         return new QEquipe().participations.edition.eq(edition).findOne();
     }
-    
+
     public List<Edition> editionsParticipee(Coureur coureur) {
         return new QParticipation()
                 .coureur.eq(coureur)
@@ -95,7 +102,7 @@ public class ParticipationService {
                 .map(p -> p.getParticipationEquipe().getEdition())
                 .collect(Collectors.toList());
     }
-    
+
     public List<Edition> editionsParticipeeNonEliminee(Coureur coureur) {
         return new QParticipation()
                 .coureur.eq(coureur)
@@ -104,7 +111,7 @@ public class ParticipationService {
                 .map(p -> p.getParticipationEquipe().getEdition())
                 .collect(Collectors.toList());
     }
-    
+
     public Participation trouverParticipation(Coureur coureur, Edition edition) {
         return new QParticipation().coureur.eq(coureur)
                 .participationEquipe.edition.eq(edition).findOne();

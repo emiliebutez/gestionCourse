@@ -8,9 +8,11 @@ import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Equipe;
 import com.mycompany.gestioncourses.models.ParticipationEquipe;
+import com.mycompany.gestioncourses.models.VehiculeAssistance;
 import com.mycompany.gestioncourses.services.CoureurService;
 import com.mycompany.gestioncourses.services.ParticipationEquipeService;
 import com.mycompany.gestioncourses.services.ParticipationService;
+import com.mycompany.gestioncourses.services.VehiculeService;
 import com.mycompany.gestioncourses.views.MainFrame;
 import com.mycompany.gestioncourses.views.utils.DropDownRenderer;
 import io.ebean.annotation.Transactional;
@@ -20,8 +22,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 /**
  *
@@ -33,10 +37,13 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
     private final CoureurService coureurService = CoureurService.getInstance();
     private final ParticipationEquipeService participationEquipeService = ParticipationEquipeService.getInstance();
     private final ParticipationService participationService = ParticipationService.getInstance();
+    private final VehiculeService vehiculeService = VehiculeService.getInstance();
     private final List<Coureur> coureurs;
+    private final List<VehiculeAssistance> vehicules;
     private final Equipe equipe;
     private final Edition edition;
     private final List<JComboBox<Coureur>> choixCoureurs;
+    private final List<JTextField> choixVehicules;
     /**
      * Creates new form ConnexionEquipePanel
      */
@@ -45,6 +52,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
         this.equipe = equipe;
         this.edition = editionSelectionnee;
         this.coureurs = coureurService.coureurSansEquipe(editionSelectionnee);
+        this.vehicules = vehiculeService.vehiculesDiponibles();
         initComponents();
         
         this.choixCoureurs = new ArrayList<>();
@@ -64,6 +72,12 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
             choix.addActionListener(this);
             this.coureurs.forEach(coureur -> choix.addItem(coureur));
         });
+        
+        this.choixVehicules = new ArrayList<>();
+        this.choixVehicules.add(this.vehicule1);
+        this.choixVehicules.add(this.vehicule2);
+        this.choixVehicules.add(this.vehicule3);
+        this.choixVehicules.add(this.vehicule4);
     }
 
     @Override
@@ -105,7 +119,11 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
         coureur9 = new javax.swing.JComboBox<>();
         coureur10 = new javax.swing.JComboBox<>();
         labelErreur = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        vehicule1 = new javax.swing.JTextField();
+        vehicule2 = new javax.swing.JTextField();
+        vehicule3 = new javax.swing.JTextField();
+        vehicule4 = new javax.swing.JTextField();
 
         jLabel6.setText("jLabel6");
 
@@ -148,7 +166,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
 
         jLabel12.setText("Coureur 10 :");
 
-        jLabel13.setText("jLabel13");
+        jLabel17.setText("Immatriculation des véhicules");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -157,64 +175,79 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(coureur2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(18, 18, 18)
-                            .addComponent(coureur4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel13)
-                                .addComponent(jLabel5))
-                            .addGap(18, 18, 18)
-                            .addComponent(coureur5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(21, 21, 21)
-                        .addComponent(coureur1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(21, 21, 21)
-                        .addComponent(coureur3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(21, 21, 21)
+                                .addComponent(coureur1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(21, 21, 21)
+                                .addComponent(coureur3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(coureur7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(coureur6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(coureur10, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(coureur9, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(coureur8, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(coureur7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(coureur6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(coureur10, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(coureur9, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addComponent(coureur8, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(55, 55, 55))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(coureur2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(coureur4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(coureur5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(216, 216, 216)
+                                .addComponent(jLabel17)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(231, 231, 231))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(boutonInscription)
                         .addGap(289, 289, 289))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelErreur)
-                        .addGap(303, 303, 303))))
+                        .addGap(303, 303, 303))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(vehicule1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(vehicule2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(vehicule3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(vehicule4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(125, 125, 125))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,9 +286,15 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
                     .addComponent(coureur10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelErreur)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(vehicule1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vehicule2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vehicule3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vehicule4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(boutonInscription)
                 .addGap(20, 20, 20))
         );
@@ -282,10 +321,34 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
             return;
         }
         
+        final List<String> vehiculesChoisis = this.choixVehicules.stream()
+                .map(selecteur -> selecteur.getText())
+                .collect(toList());
+        
+        Set<String> vehiculesIds = new HashSet<>(vehiculesChoisis);
+        
+        if (vehiculesChoisis.stream().anyMatch(c -> c == null || c.isEmpty())) {
+            labelErreur.setText("Veuillez renseigner les 4 véhicules");
+            return;
+        }
+        
+        if (vehiculesIds.size() < 4) {
+            labelErreur.setText("Veuillez renseigner 4 véhicules distincts");
+            return;
+        }
+        
+        
         ParticipationEquipe pEquipe = this.participationEquipeService.creerParticipationEquipe(this.equipe, this.edition);
         for (Coureur coureur: coureurChoisis) {
             this.participationService.creerParticipation(pEquipe, coureur, this.equipe);
         }
+        
+        this.participationService.ajouterVehicules(
+                pEquipe,
+                vehiculesChoisis.stream()
+                        .map(v -> vehiculeService.creerVehicule(v))
+                        .collect(Collectors.toList())
+        );
         
         this.frame.displayConsultationInscriptionsEquipePanel(this.equipe);
     }//GEN-LAST:event_boutonInscriptionActionPerformed
@@ -308,7 +371,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -320,5 +383,9 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel labelErreur;
+    private javax.swing.JTextField vehicule1;
+    private javax.swing.JTextField vehicule2;
+    private javax.swing.JTextField vehicule3;
+    private javax.swing.JTextField vehicule4;
     // End of variables declaration//GEN-END:variables
 }

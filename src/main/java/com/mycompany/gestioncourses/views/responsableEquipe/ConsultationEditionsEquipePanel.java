@@ -8,6 +8,7 @@ import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Equipe;
 import com.mycompany.gestioncourses.models.Etape;
+import com.mycompany.gestioncourses.models.EtatEtape;
 import com.mycompany.gestioncourses.services.CourseService;
 import com.mycompany.gestioncourses.services.EditionService;
 import com.mycompany.gestioncourses.services.ParticipationEquipeService;
@@ -167,6 +168,14 @@ public class ConsultationEditionsEquipePanel extends javax.swing.JPanel implemen
             return;
         }
         
+        
+        boolean editionCommencee = edition.getEtapes().stream().anyMatch(e -> e.getEtatEtape() == EtatEtape.Lancee);
+        boolean toutesEtapesIndisponibles = edition.getEtapes().stream().noneMatch(e -> e.getEtatEtape() == EtatEtape.Attente);
+        if (editionCommencee || toutesEtapesIndisponibles) {
+            this.labelInscription.setText("Cette édition n'est plus éligible aux inscriptions");
+            this.buttonInscription.setVisible(false);
+            return;
+        }
         
         this.labelInscription.setText("Vous n'êtes pas inscrit à cette édition");
         this.buttonInscription.setVisible(true);
