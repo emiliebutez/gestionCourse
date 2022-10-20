@@ -101,7 +101,7 @@ public class ConsultationEditionsPanel extends javax.swing.JPanel implements Act
                                     "Distance: %.2fkm" +
                                     "</html>", 
                             value.getVilleDepart(),value.getPaysDepart(),
-                            value.getPaysDepart(), value.getPaysArrivee(),
+                            value.getVilleArrivee(), value.getPaysArrivee(),
                             value.getDistance()
                     )
             );

@@ -100,7 +100,7 @@ public class ConsultationEditionsCoureurPanel extends javax.swing.JPanel impleme
                                     "Distance: %fkm" +
                                     "</html>", 
                             value.getVilleDepart(),value.getPaysDepart(),
-                            value.getPaysDepart(), value.getPaysArrivee(),
+                            value.getVilleArrivee(), value.getPaysArrivee(),
                             value.getDistance()
                     )
             );
