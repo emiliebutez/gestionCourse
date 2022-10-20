@@ -11,3 +11,5 @@ datasource:
     username: a
     password: a
     url: jdbc:sqlite:.database.db
+    driver-class-name: org.sqlite.JDBC
+  databaseDriver: org.sqlite.JDBC

@@ -94,12 +94,25 @@ public class ConsultationEditionsJuryPanel extends javax.swing.JPanel implements
     private void selectionEtape(Etape value) {
         this.etapeSelectionnee = value;
         if (value != null) {
-            if (this.etapeSelectionnee.getEtatEtape() == Cloturee) {
-                this.lancerEtape.setVisible(false);
+            switch (this.etapeSelectionnee.getEtatEtape()) {
+                case Cloturee:
+                    this.lancerEtape.setVisible(false);
+                    break;
+                case Lancee:
+                    this.lancerEtape.setVisible(true);
+                    this.lancerEtape.setText("Ajouter scores étape");
+                    break;
+                case Attente:
+                    this.lancerEtape.setVisible(true);
+                    this.lancerEtape.setText("Lancer étape");
+                    break;
+                case Annulee:
+                    this.lancerEtape.setVisible(false);
+                    break;
+                default:
+                    this.lancerEtape.setVisible(false);
             }
-            else {
-                this.lancerEtape.setVisible(true);
-            }
+            
             this.informationsEtape.setText(
                     String.format(
                             "<html>" +
@@ -156,6 +169,7 @@ public class ConsultationEditionsJuryPanel extends javax.swing.JPanel implements
                             value.getDistance()
                     )
             );
+            
             this.repaint();
         } else {
             this.informationsEdition.setText("Informations indisponibles");
@@ -306,6 +320,7 @@ public class ConsultationEditionsJuryPanel extends javax.swing.JPanel implements
     }//GEN-LAST:event_menuActionPerformed
 
     private void lancerEtapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lancerEtapeActionPerformed
+        this.etapeService.lancerEtape(etapeSelectionnee);
         this.frame.displayCourseEnCoursPanel(this.etapeSelectionnee);
     }//GEN-LAST:event_lancerEtapeActionPerformed
 
