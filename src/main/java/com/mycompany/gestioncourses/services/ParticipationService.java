@@ -3,6 +3,7 @@ package com.mycompany.gestioncourses.services;
 import com.mycompany.gestioncourses.models.*;
 
 import java.util.Collections;
+import java.util.List;
 
 public class ParticipationService {
     private static ParticipationService INSTANCE;
@@ -35,6 +36,13 @@ public class ParticipationService {
         equipe.refresh();
 
         return participation;
+    }
+    
+    public ParticipationEquipe ajouterVehicules(ParticipationEquipe participationEquipe, List<VehiculeAssistance> vehiculeAssistance) {
+        participationEquipe.setVehicules(vehiculeAssistance);
+        participationEquipe.save();
+
+        return participationEquipe;
     }
 
     public Participation changerEquipeParticipation(Participation participation, ParticipationEquipe participationEquipe) {
