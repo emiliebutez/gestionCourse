@@ -92,7 +92,7 @@ public class ConsultationMeilleursCategoriePanel extends javax.swing.JPanel impl
                                         this.editionService.meilleurJeune(value).get().getPrenom(), 
                                         this.editionService.meilleurJeune(value).get().getNom()));
             } catch(Exception e) {
-                
+                e.printStackTrace();
             }
             try {
                 this.meilleurSprint

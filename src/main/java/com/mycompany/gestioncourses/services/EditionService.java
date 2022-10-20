@@ -9,8 +9,10 @@ import com.mycompany.gestioncourses.models.query.QPerformance;
 import lombok.val;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -79,13 +81,15 @@ public class EditionService {
     }
 
     public List<Participation> participationsEditionJeunes(Edition edition) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.YEAR, -AGE_MAX_JEUNE);
+        Date yearsAgo25 = cal.getTime();
         return new QParticipationEquipe()
                 .edition.eq(edition)
                 .findStream()
                 .flatMap(pe -> pe.getParticipation().stream())
-                .filter(p -> p.getCoureur().getDateNaissance().after(
-                        Date.from(Instant.now().minus(25, ChronoUnit.YEARS))
-                ))
+                .filter(p -> p.getCoureur().getDateNaissance().after(yearsAgo25))
                 .collect(Collectors.toList());
     }
 
@@ -183,8 +187,11 @@ public class EditionService {
                 .collect(Collectors.groupingBy(
                         p -> p.getParticipation().getCoureur())
                 );
-        performances.entrySet().stream()
-                .map(p -> AbstractMap.SimpleEntry)
+        
+        
+        return Collections.emptyList();
+        //performances.entrySet().stream()
+        //        .map(p -> AbstractMap.SimpleEntry)
     }
 
 }
