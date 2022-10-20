@@ -5,10 +5,12 @@ import static com.mycompany.gestioncourses.models.Etat.Eliminee;
 import static com.mycompany.gestioncourses.models.query.QEtape.Alias.edition;
 import com.mycompany.gestioncourses.models.query.QParticipation;
 import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
+import com.mycompany.gestioncourses.models.query.QPerformance;
 import lombok.val;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -172,6 +174,17 @@ public class EditionService {
                 .edition.eq(value)
                 .equipe.eq(equipe)
                 .exists();
+    }
+    
+    
+    public List<Participation> classementGeneralEtape(Etape etape){
+        Map <Coureur, List<Performance>> performances = new QPerformance().etape.eq(etape)
+                .findStream()
+                .collect(Collectors.groupingBy(
+                        p -> p.getParticipation().getCoureur())
+                );
+        performances.entrySet().stream()
+                .map(p -> AbstractMap.SimpleEntry)
     }
 
 }
