@@ -10,4 +10,4 @@ datasource:
   db:
     username: a
     password: a
-    url: jdbc:sqlite:.database.db
+    url: jdbc:sqlite:.database-db

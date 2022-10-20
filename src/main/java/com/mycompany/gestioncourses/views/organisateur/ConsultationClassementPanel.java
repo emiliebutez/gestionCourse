@@ -32,6 +32,7 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         menu = new javax.swing.JButton();
+        meilleurCategorie = new javax.swing.JButton();
 
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
@@ -40,21 +41,34 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
             }
         });
 
+        meilleurCategorie.setText("Consulter les meilleurs des catégories des éditions");
+        meilleurCategorie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meilleurCategorieActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(541, Short.MAX_VALUE)
+                .addContainerGap(785, Short.MAX_VALUE)
                 .addComponent(menu)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(meilleurCategorie)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(menu)
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addGap(101, 101, 101)
+                .addComponent(meilleurCategorie)
+                .addContainerGap(135, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -62,8 +76,13 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
         this.frame.displayMenuOrganisateur();
     }//GEN-LAST:event_menuActionPerformed
 
+    private void meilleurCategorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meilleurCategorieActionPerformed
+        this.frame.displayConsultationMeilleursCategoriePanel();
+    }//GEN-LAST:event_meilleurCategorieActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton meilleurCategorie;
     private javax.swing.JButton menu;
     // End of variables declaration//GEN-END:variables
 }

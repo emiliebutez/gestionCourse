@@ -157,6 +157,7 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
             }
         });
 
+        temps.setText("0");
         temps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tempsActionPerformed(evt);
@@ -350,7 +351,7 @@ public class CourseEnCoursPanel extends javax.swing.JPanel implements ActionList
 
     private void validationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validationActionPerformed
         if(this.perfService.trouverPerformance(this.etape, this.coureurSelectionnee) == null) {
-            Participation participation = this.particitapationService.trouverParticipation(coureurSelectionnee);
+            Participation participation = this.particitapationService.trouverParticipation(coureurSelectionnee, etape.getEdition());
             this.perfService.creerPerformance(participation, etape, 0, 0, 0);
         }
         

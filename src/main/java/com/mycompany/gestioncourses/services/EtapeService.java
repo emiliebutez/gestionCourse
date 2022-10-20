@@ -30,7 +30,11 @@ public class EtapeService {
         etape.getPerformances()
                 .stream()
                 .filter(p -> p.getTemps() == 0)
-                .forEach(p -> p.getParticipation().setEtatParticipation(Etat.Eliminee));
+                .forEach(p -> {
+                    p.getParticipation().setEtatParticipation(Etat.Eliminee);
+                    p.getParticipation().save();
+                        }
+                );
         
         this.equipeService.eliminerEquipes(etape.getEdition());
         

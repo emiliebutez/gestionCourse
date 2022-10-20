@@ -25,6 +25,7 @@ import com.mycompany.gestioncourses.views.jury.ConsultationEditionsJuryPanel;
 import com.mycompany.gestioncourses.views.jury.CourseEnCoursPanel;
 import com.mycompany.gestioncourses.views.jury.MenuJuryPanel;
 import com.mycompany.gestioncourses.views.organisateur.AjoutEtapePanel;
+import com.mycompany.gestioncourses.views.organisateur.ConsultationMeilleursCategoriePanel;
 import com.mycompany.gestioncourses.views.responsableEquipe.ComposerEquipePanel;
 import com.mycompany.gestioncourses.views.responsableEquipe.ConnexionEquipePanel;
 import com.mycompany.gestioncourses.views.responsableEquipe.ConsultationEditionsEquipePanel;
@@ -203,6 +204,10 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void displayCourseEnCoursPanel(Etape etape) {
         this.setMainFrame(new CourseEnCoursPanel(this, etape));
+    }
+    
+    public void displayConsultationMeilleursCategoriePanel() {
+        this.setMainFrame(new ConsultationMeilleursCategoriePanel(this));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

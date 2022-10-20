@@ -1,6 +1,7 @@
 package com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.*;
+import static com.mycompany.gestioncourses.models.Etat.Eliminee;
 import static com.mycompany.gestioncourses.models.query.QEtape.Alias.edition;
 import com.mycompany.gestioncourses.models.query.QParticipation;
 import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
@@ -80,7 +81,7 @@ public class EditionService {
                 .edition.eq(edition)
                 .findStream()
                 .flatMap(pe -> pe.getParticipation().stream())
-                .filter(p -> p.getCoureur().getDateNaissance().before(
+                .filter(p -> p.getCoureur().getDateNaissance().after(
                         Date.from(Instant.now().minus(25, ChronoUnit.YEARS))
                 ))
                 .collect(Collectors.toList());
@@ -89,6 +90,7 @@ public class EditionService {
     public Optional<Coureur> meilleurJeune(Edition edition) {
         val participationsParCoureur = participationsEditionJeunes(edition)
                 .stream()
+                .filter(p -> p.getEtatParticipation()!= Eliminee)
                 .collect(groupingBy(Participation::getCoureur)); // On regroupe par coureur
 
         val performances = participationsParCoureur
@@ -119,8 +121,9 @@ public class EditionService {
     }
 
     private Optional<Coureur> meilleurCoureur(List<Participation> participations, Function<Performance, Integer> critere) {
-        val participationsParCoureur = participations
+        Map<Coureur, List<Participation>> participationsParCoureur = participations
                 .stream()
+                .filter(p -> p.getEtatParticipation()!= Eliminee)
                 .collect(groupingBy(Participation::getCoureur)); // On regroupe par coureur
 
         val performances = participationsParCoureur
