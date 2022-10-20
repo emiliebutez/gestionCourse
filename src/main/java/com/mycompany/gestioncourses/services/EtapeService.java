@@ -1,4 +1,4 @@
-package com.mycompany.gestioncourses.services;
+apackage com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.Etape;
 import com.mycompany.gestioncourses.models.Etat;
