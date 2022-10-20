@@ -125,8 +125,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.setMainFrame(new MenuCoureurPanel(this, coureur));
     }
     
-    public void displayConsultationInscriptionsPanel() {
-        this.setMainFrame(new ConsultationInscriptionsPanel(this));
+    public void displayConsultationInscriptionsPanel(Coureur coureur) {
+        this.setMainFrame(new ConsultationInscriptionsPanel(this, coureur));
     }
     
     public void displayConsulterEditionsPanel() {
