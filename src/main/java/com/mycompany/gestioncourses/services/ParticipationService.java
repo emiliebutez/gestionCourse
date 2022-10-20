@@ -104,5 +104,9 @@ public class ParticipationService {
                 .map(p -> p.getParticipationEquipe().getEdition())
                 .collect(Collectors.toList());
     }
-
+    
+    public Participation trouverParticipation(Coureur coureur, Edition edition) {
+        return new QParticipation().coureur.eq(coureur)
+                .participationEquipe.edition.eq(edition).findOne();
+    }
 }

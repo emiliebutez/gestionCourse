@@ -7,10 +7,13 @@ import com.mycompany.gestioncourses.models.Etat;
 import com.mycompany.gestioncourses.models.ParticipationEquipe;
 import com.mycompany.gestioncourses.models.query.QCoureur;
 import com.mycompany.gestioncourses.models.query.QEquipe;
+import com.mycompany.gestioncourses.models.query.QParticipation;
 import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class EquipeService {
     private static EquipeService INSTANCE;
@@ -62,13 +65,11 @@ public class EquipeService {
     }
     
     public List<Coureur> coureursEquipe(Equipe equipe, Edition edition) {
-        return new QCoureur().participations
-                .participationEquipe
-                .edition.eq(edition)
-                .participations
-                .participationEquipe
-                .equipe
-                .eq(equipe)
-                .findList();
+        return new QParticipation()
+                .participationEquipe.equipe.eq(equipe)
+                .participationEquipe.edition.eq(edition)
+                .findStream()
+                .map(p -> p.getCoureur())
+                .collect(Collectors.toList());
     }
 }
