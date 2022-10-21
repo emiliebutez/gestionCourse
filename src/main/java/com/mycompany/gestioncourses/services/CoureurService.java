@@ -3,6 +3,8 @@ package com.mycompany.gestioncourses.services;
 import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Etape;
+import com.mycompany.gestioncourses.models.Etat;
+import com.mycompany.gestioncourses.models.Participation;
 import com.mycompany.gestioncourses.models.Performance;
 import com.mycompany.gestioncourses.models.query.QCoureur;
 import static com.mycompany.gestioncourses.models.query.QCoureur.Alias.participations;
@@ -85,5 +87,9 @@ public class CoureurService {
                 .participation.performances.etape.eq(etape).findOne();
         
        return performance.getTemps();
+    }
+    
+    public boolean coureurElimine(Coureur coureur, Edition edition) {
+        return new QParticipation().etatParticipation.eq(Etat.Eliminee).coureur.eq(coureur).participationEquipe.edition.eq(edition).exists();
     }
 }

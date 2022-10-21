@@ -97,7 +97,7 @@ public class ConsultationClassementEtapePanel extends javax.swing.JPanel impleme
             try {
                 List<Coureur> coureurEquipe = this.editionService.classementGeneralEtape(this.etapeSelectionnee);
                 String nomCoureurs = coureurEquipe.stream()
-                            .map(c -> String.format("%s %s %s %s",coureurEquipe.indexOf(c) + 1, "Prénom :" +c.getPrenom(), "Nom :" +c.getNom(),this.coureurService.tempsCoureurEtape(this.etapeSelectionnee, c) ))
+                            .map(c -> String.format("%s %s %s",coureurEquipe.indexOf(c) + 1, "Prénom :" +c.getPrenom(), "Nom :" +c.getNom()))
                             .collect(Collectors.joining("<br/>", "<html>", "<html/>"));
                     this.classementGeneral.setText(nomCoureurs);
                     
@@ -108,7 +108,7 @@ public class ConsultationClassementEtapePanel extends javax.swing.JPanel impleme
             try {
                 List<Equipe> equipes = this.editionService.classementGeneralEtapeParEquipe(this.etapeSelectionnee);
                 String nomEquipes = equipes.stream()
-                            .map(c -> String.format("%s %s %s %s", equipes.indexOf(c) + 1,"Equipe :" + c.getNomEquipe(), "Nationalité : "+c.getNationnalite(), this.equipeService.tempsEquipeEtape(this.etapeSelectionnee, c)))
+                            .map(c -> String.format("%s %s %s", equipes.indexOf(c) + 1,"Equipe :" + c.getNomEquipe(), "Nationalité : "+c.getNationnalite()))
                             .collect(Collectors.joining("<br/>", "<html>", "<html/>"));
                     this.classementEquipe.setText(nomEquipes);
             } catch(Exception e) {
