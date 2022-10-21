@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  *
  * @author Emilie
  */
-public class ConsultationClassementEditionPanel extends javax.swing.JPanel implements ActionListener {
+public class ConsultationClassementEtapePanel extends javax.swing.JPanel implements ActionListener {
     
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private MainFrame frame;
@@ -32,18 +32,21 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
     private List<Course> courses = courseService.courses();
     private Course courseSelectionnee;
     private Edition editionSelectionnee;
+    private Etape etapeSelectionnee;
 
     /**
      * Creates new form ConsultationClassementEditionPanel
      */
-    public ConsultationClassementEditionPanel(MainFrame frame) {
+    public ConsultationClassementEtapePanel(MainFrame frame) {
         this.frame = frame;
         initComponents();
         
         this.choixCourse.removeAllItems();
         this.choixEdition.removeAllItems();
+        this.choixEtape.removeAllItems();
         this.choixCourse.addActionListener(this);
         this.choixEdition.addActionListener(this);
+        this.choixEtape.addActionListener(this);
         this.courses.stream().forEach(c -> this.choixCourse.addItem(c));
         this.courseSelectionnee = this.courses.isEmpty() ? null : this.courses.get(0);
         this.choixCourse.setRenderer(new DropDownRenderer<Course>(c -> c.getNom()));
@@ -53,6 +56,13 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
                 return "Pas d'édition disponible";
             }
             return DATE_FORMAT.format(e.getDateDebut());
+        }));
+        
+        this.choixEtape.setRenderer(new DropDownRenderer<Etape>(e -> {
+            if (e == null) {
+                return "Pas d'étape disponible";
+            }
+            return String.valueOf(e.getNumOrdre());
         }));
         
         this.invalidate();
@@ -69,6 +79,38 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
         if (e.getSource() == this.choixEdition) {
             selectionEdition((Edition) this.choixEdition.getSelectedItem());
             return;
+        }
+        
+        if (e.getSource() == this.choixEtape) {
+            selectionEtape((Etape) this.choixEtape.getSelectedItem());
+            return;
+        }
+    }
+    
+    private void selectionEtape(Etape value) {
+        this.etapeSelectionnee = value;
+        if (value != null) {
+            try {
+                List<Coureur> coureurEquipe = this.editionService.classementGeneralEtape(this.etapeSelectionnee);
+                String nomCoureurs = coureurEquipe.stream()
+                            .map(c -> String.format("%s %s", c.getPrenom(), c.getNom()))
+                            .collect(Collectors.joining("<br/>", "<html>", "<html/>"));
+                    this.classementGeneral.setText(nomCoureurs);
+                    
+            } catch(Exception e) {
+                this.classementGeneral.setText("Classement indisponible");
+            }
+            
+            try {
+                List<Equipe> equipes = this.editionService.classementGeneralEtapeParEquipe(this.etapeSelectionnee);
+                String nomEquipes = equipes.stream()
+                            .map(c -> String.format("%s %s", c.getNomEquipe(), c.getNationnalite()))
+                            .collect(Collectors.joining("<br/>", "<html>", "<html/>"));
+                    this.classementEquipe.setText(nomEquipes);
+            } catch(Exception e) {
+                this.classementEquipe.setText("Classement indisponible");
+            }
+            this.repaint();
         }
     }
     
@@ -88,27 +130,14 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
     private void selectionEdition(Edition value) {
         this.editionSelectionnee = value;
         if (value != null) {
-            
-            try {
-                List<Coureur> coureurEquipe = this.editionService.classementGeneralEdition(this.editionSelectionnee);
-                String nomCoureurs = coureurEquipe.stream()
-                            .map(c -> String.format("%s %s", c.getPrenom(), c.getNom()))
-                            .collect(Collectors.joining("<br/>", "<html>", "<html/>"));
-                    this.classementGeneral.setText(nomCoureurs);
-                    
-            } catch(Exception e) {
-                this.classementGeneral.setText("Classement indisponible");
+            this.choixEtape.removeAllItems();
+            if (this.editionSelectionnee.getEtapes() != null) {
+                this.editionSelectionnee.getEtapes()
+                    .stream()
+                    .forEach(etape -> this.choixEtape.addItem(etape));
             }
             
-            try {
-                List<Equipe> equipes = this.editionService.classementGeneralEditionParEquipe(this.editionSelectionnee);
-                String nomEquipes = equipes.stream()
-                            .map(c -> String.format("%s %s", c.getNomEquipe(), c.getNationnalite()))
-                            .collect(Collectors.joining("<br/>", "<html>", "<html/>"));
-                    this.classementEquipe.setText(nomEquipes);
-            } catch(Exception e) {
-                this.classementEquipe.setText("Classement indisponible");
-            }
+            this.repaint();
         }
     }
 
@@ -130,6 +159,8 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
         jLabel4 = new javax.swing.JLabel();
         classementGeneral = new javax.swing.JLabel();
         classementEquipe = new javax.swing.JLabel();
+        choixEtape = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
 
         retour.setText("Retour");
         retour.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +183,8 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
 
         classementEquipe.setText("Classement non disponible ");
 
+        jLabel5.setText("Etape :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,11 +200,13 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
                                 .addGap(66, 66, 66)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5))
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(choixCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(131, 131, 131)
                                 .addComponent(jLabel3))
@@ -200,15 +235,19 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(choixEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(choixEtape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(32, 32, 32)
                 .addComponent(classementGeneral)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel4)
                 .addGap(48, 48, 48)
                 .addComponent(classementEquipe)
-                .addGap(34, 34, 34))
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,12 +259,14 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Course> choixCourse;
     private javax.swing.JComboBox<Edition> choixEdition;
+    private javax.swing.JComboBox<Etape> choixEtape;
     private javax.swing.JLabel classementEquipe;
     private javax.swing.JLabel classementGeneral;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JButton retour;
     // End of variables declaration//GEN-END:variables
 }
