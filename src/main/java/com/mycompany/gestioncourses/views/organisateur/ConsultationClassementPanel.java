@@ -97,7 +97,7 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuActionPerformed
-        this.frame.displayMenuOrganisateur();
+        this.frame.displayUtilisateur();
     }//GEN-LAST:event_menuActionPerformed
 
     private void meilleurCategorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meilleurCategorieActionPerformed

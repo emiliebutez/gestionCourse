@@ -34,7 +34,6 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
         creationCourse = new javax.swing.JButton();
         creationEdition = new javax.swing.JButton();
         ConsulterEdition = new javax.swing.JButton();
-        consulterClassement = new javax.swing.JButton();
         utilisateur = new javax.swing.JButton();
         ajouterEtape = new javax.swing.JButton();
 
@@ -62,13 +61,6 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
             }
         });
 
-        consulterClassement.setText("Consultation classement");
-        consulterClassement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consulterClassementActionPerformed(evt);
-            }
-        });
-
         utilisateur.setText("Choix Utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,41 +80,37 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(utilisateur))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(creationCourse)
-                        .addGap(41, 41, 41)
-                        .addComponent(creationEdition)
-                        .addGap(42, 42, 42)
-                        .addComponent(ajouterEtape)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(ConsulterEdition)
-                        .addGap(37, 37, 37)
-                        .addComponent(consulterClassement)))
-                .addContainerGap())
+                .addGap(15, 15, 15)
+                .addComponent(creationCourse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addComponent(creationEdition)
+                .addGap(75, 75, 75)
+                .addComponent(ajouterEtape)
+                .addGap(116, 116, 116)
+                .addComponent(ConsulterEdition)
+                .addGap(48, 48, 48))
             .addGroup(layout.createSequentialGroup()
                 .addGap(301, 301, 301)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(utilisateur)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(utilisateur)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(creationCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(creationEdition)
-                    .addComponent(ConsulterEdition)
-                    .addComponent(consulterClassement)
-                    .addComponent(ajouterEtape))
+                    .addComponent(ajouterEtape)
+                    .addComponent(ConsulterEdition))
                 .addGap(123, 123, 123))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -143,10 +131,6 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
         frame.displayConsulterEditionsPanel();
     }//GEN-LAST:event_ConsulterEditionActionPerformed
 
-    private void consulterClassementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterClassementActionPerformed
-        frame.displayConsulterClassementPanel();
-    }//GEN-LAST:event_consulterClassementActionPerformed
-
     private void ajouterEtapeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterEtapeActionPerformed
         frame.displayAjoutEtapePanel();
     }//GEN-LAST:event_ajouterEtapeActionPerformed
@@ -155,7 +139,6 @@ public class MenuOrganisateurPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ConsulterEdition;
     private javax.swing.JButton ajouterEtape;
-    private javax.swing.JButton consulterClassement;
     private javax.swing.JButton creationCourse;
     private javax.swing.JButton creationEdition;
     private javax.swing.JLabel jLabel1;

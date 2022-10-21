@@ -9,13 +9,16 @@ import com.mycompany.gestioncourses.models.Course;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Equipe;
 import com.mycompany.gestioncourses.models.Etape;
+import com.mycompany.gestioncourses.services.CoureurService;
 import com.mycompany.gestioncourses.services.CourseService;
 import com.mycompany.gestioncourses.services.EditionService;
+import com.mycompany.gestioncourses.services.EquipeService;
 import com.mycompany.gestioncourses.views.MainFrame;
 import com.mycompany.gestioncourses.views.utils.DropDownRenderer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +32,8 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
     private MainFrame frame;
     private EditionService editionService = EditionService.getInstance();
     private CourseService courseService = CourseService.getInstance();
+    private CoureurService coureurService = CoureurService.getInstance();
+    private EquipeService equipeService = EquipeService.getInstance();
     private List<Course> courses = courseService.courses();
     private Course courseSelectionnee;
     private Edition editionSelectionnee;
@@ -92,7 +97,7 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
             try {
                 List<Coureur> coureurEquipe = this.editionService.classementGeneralEdition(this.editionSelectionnee);
                 String nomCoureurs = coureurEquipe.stream()
-                            .map(c -> String.format("%s %s", c.getPrenom(), c.getNom()))
+                            .map(c -> String.format("%s %s %s %s", coureurEquipe.indexOf(c) + 1,"Prenom : " + c.getPrenom(),"    Nom : " + c.getNom(), "Temps : " + this.coureurService.tempsCoureurEdition(this.editionSelectionnee, c)))
                             .collect(Collectors.joining("<br/>", "<html>", "<html/>"));
                     this.classementGeneral.setText(nomCoureurs);
                     
@@ -103,7 +108,7 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
             try {
                 List<Equipe> equipes = this.editionService.classementGeneralEditionParEquipe(this.editionSelectionnee);
                 String nomEquipes = equipes.stream()
-                            .map(c -> String.format("%s %s", c.getNomEquipe(), c.getNationnalite()))
+                            .map(c -> String.format("%s %s %s %s", equipes.indexOf(c) + 1, "Equipe : " + c.getNomEquipe(), "Nationalité : " +c.getNationnalite(), "Temps : " +this.equipeService.tempsEquipeEdition(this.editionSelectionnee, c)))
                             .collect(Collectors.joining("<br/>", "<html>", "<html/>"));
                     this.classementEquipe.setText(nomEquipes);
             } catch(Exception e) {
@@ -158,9 +163,6 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(retour))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -177,14 +179,16 @@ public class ConsultationClassementEditionPanel extends javax.swing.JPanel imple
                                 .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(120, 120, 120)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(109, 109, 109)
-                                .addComponent(classementGeneral))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(109, 109, 109)
-                                .addComponent(classementEquipe)))
-                        .addGap(0, 103, Short.MAX_VALUE)))
+                                .addComponent(jLabel4)))
+                        .addGap(0, 116, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(retour))
+                            .addComponent(classementGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(classementEquipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

@@ -33,7 +33,8 @@ public class UtilisateurPanel extends javax.swing.JPanel {
         coureur = new javax.swing.JButton();
         responsableEquipe = new javax.swing.JButton();
         jury = new javax.swing.JButton();
-        membreFFC = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Choix utilisateur");
@@ -66,7 +67,15 @@ public class UtilisateurPanel extends javax.swing.JPanel {
             }
         });
 
-        membreFFC.setText("Membre FFC");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setText("Consultation classement");
+
+        jButton1.setText("Classements");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -82,27 +91,35 @@ public class UtilisateurPanel extends javax.swing.JPanel {
                         .addGap(38, 38, 38)
                         .addComponent(responsableEquipe)
                         .addGap(44, 44, 44)
-                        .addComponent(jury)
-                        .addGap(27, 27, 27)
-                        .addComponent(membreFFC))
+                        .addComponent(jury))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(jLabel1)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addGap(230, 230, 230)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(jButton1)))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(79, 79, 79)
                 .addComponent(jLabel1)
-                .addGap(47, 47, 47)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(organisateur)
                     .addComponent(coureur)
                     .addComponent(responsableEquipe)
-                    .addComponent(jury)
-                    .addComponent(membreFFC))
-                .addContainerGap(116, Short.MAX_VALUE))
+                    .addComponent(jury))
+                .addGap(64, 64, 64)
+                .addComponent(jLabel2)
+                .addGap(45, 45, 45)
+                .addComponent(jButton1)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -122,13 +139,18 @@ public class UtilisateurPanel extends javax.swing.JPanel {
         this.frame.displayConnexionEquipePanel();
     }//GEN-LAST:event_responsableEquipeActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.frame.displayConsulterClassementPanel();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton coureur;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jury;
-    private javax.swing.JButton membreFFC;
     private javax.swing.JButton organisateur;
     private javax.swing.JButton responsableEquipe;
     // End of variables declaration//GEN-END:variables

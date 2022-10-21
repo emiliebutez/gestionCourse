@@ -2,9 +2,13 @@ package com.mycompany.gestioncourses.services;
 
 import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Edition;
+import com.mycompany.gestioncourses.models.Etape;
+import com.mycompany.gestioncourses.models.Performance;
 import com.mycompany.gestioncourses.models.query.QCoureur;
+import static com.mycompany.gestioncourses.models.query.QCoureur.Alias.participations;
 import com.mycompany.gestioncourses.models.query.QParticipation;
 import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
+import com.mycompany.gestioncourses.models.query.QPerformance;
 
 import java.util.Collections;
 import java.util.Date;
@@ -65,5 +69,21 @@ public class CoureurService {
         return new QCoureur()
                 .id.notIn(coureursAvecParticipation)
                 .findList();
+    }
+    
+    public float tempsCoureurEdition(Edition edition, Coureur coureur) {
+        List<Performance> performances = new QPerformance().participation.coureur.eq(coureur)
+                .participation.participationEquipe.edition.eq(edition).findList();
+        
+        float temps = (float) performances.stream().mapToDouble(p -> p.getTemps()).sum();
+        return temps;
+    }
+    
+    
+    public float tempsCoureurEtape(Etape etape, Coureur coureur) {
+        Performance performance = new QPerformance().participation.coureur.eq(coureur)
+                .participation.performances.etape.eq(etape).findOne();
+        
+       return performance.getTemps();
     }
 }

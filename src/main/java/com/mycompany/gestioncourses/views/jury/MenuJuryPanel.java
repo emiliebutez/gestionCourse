@@ -33,7 +33,6 @@ public class MenuJuryPanel extends javax.swing.JPanel {
 
         utilisateur = new javax.swing.JButton();
         editions = new javax.swing.JButton();
-        classement = new javax.swing.JButton();
 
         utilisateur.setText("Choix utilisateur");
         utilisateur.addActionListener(new java.awt.event.ActionListener() {
@@ -49,27 +48,18 @@ public class MenuJuryPanel extends javax.swing.JPanel {
             }
         });
 
-        classement.setText("Consulter classement");
-        classement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                classementActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(250, Short.MAX_VALUE)
                 .addComponent(utilisateur)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(120, 120, 120)
                 .addComponent(editions)
-                .addGap(18, 18, 18)
-                .addComponent(classement)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,9 +67,7 @@ public class MenuJuryPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(utilisateur)
                 .addGap(104, 104, 104)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editions)
-                    .addComponent(classement))
+                .addComponent(editions)
                 .addContainerGap(132, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -92,13 +80,8 @@ public class MenuJuryPanel extends javax.swing.JPanel {
         this.frame.displayConsultationEditionsJuryPanel();
     }//GEN-LAST:event_editionsActionPerformed
 
-    private void classementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classementActionPerformed
-        this.frame.displayConsultationClassementJuryPanel();
-    }//GEN-LAST:event_classementActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton classement;
     private javax.swing.JButton editions;
     private javax.swing.JButton utilisateur;
     // End of variables declaration//GEN-END:variables

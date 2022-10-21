@@ -3,12 +3,15 @@ package com.mycompany.gestioncourses.services;
 import com.mycompany.gestioncourses.models.Coureur;
 import com.mycompany.gestioncourses.models.Edition;
 import com.mycompany.gestioncourses.models.Equipe;
+import com.mycompany.gestioncourses.models.Etape;
 import com.mycompany.gestioncourses.models.Etat;
 import com.mycompany.gestioncourses.models.ParticipationEquipe;
+import com.mycompany.gestioncourses.models.Performance;
 import com.mycompany.gestioncourses.models.query.QCoureur;
 import com.mycompany.gestioncourses.models.query.QEquipe;
 import com.mycompany.gestioncourses.models.query.QParticipation;
 import com.mycompany.gestioncourses.models.query.QParticipationEquipe;
+import com.mycompany.gestioncourses.models.query.QPerformance;
 
 import java.util.Collections;
 import java.util.List;
@@ -71,5 +74,22 @@ public class EquipeService {
                 .findStream()
                 .map(p -> p.getCoureur())
                 .collect(Collectors.toList());
+    }
+    
+    public float tempsEquipeEdition(Edition edition, Equipe equipe) {
+        List<Performance> performances = new QPerformance().participation.participationEquipe.equipe.eq(equipe)
+                .participation.participationEquipe.edition.eq(edition).findList();
+        
+        float temps = (float) performances.stream().mapToDouble(p -> p.getTemps()).sum();
+        return temps;
+    }
+    
+    
+    public float tempsEquipeEtape(Etape etape, Equipe equipe) {
+        List<Performance> performances = new QPerformance().participation.participationEquipe.equipe.eq(equipe)
+                .participation.performances.etape.eq(etape).findList();
+        
+       float temps = (float) performances.stream().mapToDouble(p -> p.getTemps()).sum();
+       return temps;
     }
 }
