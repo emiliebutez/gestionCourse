@@ -3,7 +3,7 @@ ebean:
     platform: sqlite
     generate: true
     dbName: course
-    dllMode: migrations
+    dllMode: create
     # run: true
     
 datasource:

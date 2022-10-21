@@ -32,6 +32,7 @@ import com.mycompany.gestioncourses.views.responsableEquipe.ConsultationEditions
 import com.mycompany.gestioncourses.views.responsableEquipe.ConsultationInscriptionsEquipePanel;
 import com.mycompany.gestioncourses.views.responsableEquipe.InscriptionEquipePanel;
 import com.mycompany.gestioncourses.views.responsableEquipe.MenuResponsablePanel;
+import io.ebean.DB;
 import java.awt.Container;
 import java.sql.Date;
 import java.util.Collections;
@@ -78,6 +79,8 @@ public class MainFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        DB.getDefault().script().run("/db-init.sql");
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
