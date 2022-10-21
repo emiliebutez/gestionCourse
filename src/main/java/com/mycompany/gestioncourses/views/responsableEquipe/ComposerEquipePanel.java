@@ -350,7 +350,7 @@ public class ComposerEquipePanel extends javax.swing.JPanel implements ActionLis
                         .collect(Collectors.toList())
         );
         
-        this.frame.displayConsultationInscriptionsEquipePanel(this.equipe);
+        this.frame.displayConsultationEditionsEquipePanel(this.equipe);
     }//GEN-LAST:event_boutonInscriptionActionPerformed
 
     
