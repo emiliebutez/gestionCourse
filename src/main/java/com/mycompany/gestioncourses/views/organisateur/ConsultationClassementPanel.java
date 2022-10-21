@@ -33,6 +33,7 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
 
         menu = new javax.swing.JButton();
         meilleurCategorie = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
@@ -48,6 +49,13 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Consulter classement par edition");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -59,6 +67,8 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(meilleurCategorie)
+                .addGap(36, 36, 36)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -67,7 +77,9 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(menu)
                 .addGap(101, 101, 101)
-                .addComponent(meilleurCategorie)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meilleurCategorie)
+                    .addComponent(jButton1))
                 .addContainerGap(135, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -80,8 +92,13 @@ public class ConsultationClassementPanel extends javax.swing.JPanel {
         this.frame.displayConsultationMeilleursCategoriePanel();
     }//GEN-LAST:event_meilleurCategorieActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.frame.displayConsultationClassementEditionPanel();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton meilleurCategorie;
     private javax.swing.JButton menu;
     // End of variables declaration//GEN-END:variables
