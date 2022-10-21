@@ -181,17 +181,84 @@ public class EditionService {
     }
     
     
-    public List<Participation> classementGeneralEtape(Etape etape){
+    public List<Coureur> classementGeneralEtape(Etape etape){
         Map <Coureur, List<Performance>> performances = new QPerformance().etape.eq(etape)
                 .findStream()
                 .collect(Collectors.groupingBy(
                         p -> p.getParticipation().getCoureur())
                 );
         
+        return performances.entrySet().stream()
+                .map(entry -> new AbstractMap.SimpleEntry<>(
+                        entry.getKey(),
+                        entry.getValue().stream()
+                            .map(Performance::getTemps)
+                            .reduce(Float::sum)
+                            .orElse(0f)
+                ))
+                .sorted((entryA, entryB) -> entryA.getValue().compareTo(entryB.getValue()))
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toList());
+    }
+    
+    public List<Equipe> classementGeneralEtapeParEquipe(Etape etape){
+        Map <Equipe, List<Performance>> performances = new QPerformance().etape.eq(etape)
+                .findStream()
+                .collect(Collectors.groupingBy(
+                        p -> p.getParticipation().getParticipationEquipe().getEquipe())
+                );
         
-        return Collections.emptyList();
-        //performances.entrySet().stream()
-        //        .map(p -> AbstractMap.SimpleEntry)
+        return performances.entrySet().stream()
+                .map(entry -> new AbstractMap.SimpleEntry<>(
+                        entry.getKey(),
+                        entry.getValue().stream()
+                            .map(Performance::getTemps)
+                            .reduce(Float::sum)
+                            .orElse(0f)
+                ))
+                .sorted((entryA, entryB) -> entryA.getValue().compareTo(entryB.getValue()))
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toList());
+    }
+    
+    public List<Coureur> classementGeneralEdition(Edition edition){
+        Map <Coureur, List<Performance>> performances = new QPerformance().etape.edition.eq(edition)
+                .findStream()
+                .collect(Collectors.groupingBy(
+                        p -> p.getParticipation().getCoureur())
+                );
+        
+        return performances.entrySet().stream()
+                .map(entry -> new AbstractMap.SimpleEntry<>(
+                        entry.getKey(),
+                        entry.getValue().stream()
+                            .map(Performance::getTemps)
+                            .reduce(Float::sum)
+                            .orElse(0f)
+                ))
+                .sorted((entryA, entryB) -> entryA.getValue().compareTo(entryB.getValue()))
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toList());
+    }
+    
+    public List<Equipe> classementGeneralEditionParEquipe(Edition edition){
+        Map <Equipe, List<Performance>> performances = new QPerformance().etape.edition.eq(edition)
+                .findStream()
+                .collect(Collectors.groupingBy(
+                        p -> p.getParticipation().getParticipationEquipe().getEquipe())
+                );
+        
+        return performances.entrySet().stream()
+                .map(entry -> new AbstractMap.SimpleEntry<>(
+                        entry.getKey(),
+                        entry.getValue().stream()
+                            .map(Performance::getTemps)
+                            .reduce(Float::sum)
+                            .orElse(0f)
+                ))
+                .sorted((entryA, entryB) -> entryA.getValue().compareTo(entryB.getValue()))
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toList());
     }
 
 }
